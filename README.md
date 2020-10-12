@@ -159,7 +159,7 @@ const { trackEvent } = Plausible()
 trackEvent('signup')
 ```
 
-As with [`pageView`](#tracking-page-views), you may also provide override values and a callback as the second and third parameters respectivelly:
+As with [`pageView`](#tracking-page-views), you may also provide override values and a callback as the second and third parameters respectively:
 
 ```ts
 import Plausible from 'plausible-tracker'

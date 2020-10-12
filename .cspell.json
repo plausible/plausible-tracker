@@ -25,7 +25,10 @@
     "pageview",
     "pageviews",
     "Plausible's",
-    "GIFs"
+    "GIFs",
+    "popstate",
+    "hashchange",
+    "signup"
   ],
   "flagWords": [],
   "ignorePaths": [
