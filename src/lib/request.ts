@@ -13,7 +13,7 @@ type EventPayload = {
 };
 
 export type EventOptions = {
-  readonly callback?: () => undefined;
+  readonly callback?: () => void;
 };
 
 /**

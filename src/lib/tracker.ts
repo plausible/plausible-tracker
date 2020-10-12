@@ -45,6 +45,16 @@ export type PlausibleOptions = {
  *
  * Use it to track your defined goals by providing the goal's name as `eventName`.
  *
+ * ### Example
+ * ```js
+ * import Plausible from 'plausible-tracker'
+ *
+ * const { trackEvent } = Plausible()
+ *
+ * // Tracks the 'signup' goal
+ * trackEvent('signup')
+ * ```
+ *
  * @param eventName - Name of the event to track
  * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
  * @param options - Event options. The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
@@ -57,6 +67,16 @@ type TrackEvent = (
 
 /**
  * Manually tracks a page view.
+ *
+ * ### Example
+ * ```js
+ * import Plausible from 'plausible-tracker'
+ *
+ * const { pageView } = Plausible()
+ *
+ * // Track a page view
+ * pageView()
+ * ```
  *
  * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
  * @param options - Event options. The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
@@ -72,6 +92,28 @@ type Cleanup = () => void;
  * Tracks the current page and all further pages automatically.
  *
  * Call this if you don't want to manually manage pageview tracking.
+ *
+ * ### Example
+ * ```js
+ * import Plausible from 'plausible-tracker'
+ *
+ * const { enableAutoPageViews } = Plausible()
+ *
+ * // This tracks the current page view and all future ones as well
+ * enableAutoPageViews()
+ * ```
+ *
+ * The returned value is a callback that removes the added event listeners and restores `history.pushState`
+ * ```js
+ * import Plausible from 'plausible-tracker'
+ *
+ * const { enableAutoPageViews } = Plausible()
+ *
+ * const cleanup = enableAutoPageViews()
+ *
+ * // Remove event listeners and restore `history.pushState`
+ * cleanup()
+ * ```
  */
 type EnableAutoPageViews = () => Cleanup;
 
