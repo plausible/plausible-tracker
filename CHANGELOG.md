@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.5](https://github.com/Maronato/plausible-tracker/compare/v0.1.4...v0.1.5) (2020-10-12)
+
+
+### Bug Fixes
+
+* **docs:** fixed some typos ([dbe0a2c](https://github.com/Maronato/plausible-tracker/commit/dbe0a2cea15dbd87fd13f76ac51a2ede25c632ad))
+
 ### [0.1.4](https://github.com/Maronato/plausible-tracker/compare/v0.1.3...v0.1.4) (2020-10-12)
 
 ### [0.1.3](https://github.com/Maronato/plausible-tracker/compare/v0.1.2...v0.1.3) (2020-10-12)
