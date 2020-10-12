@@ -201,7 +201,7 @@ export default function Plausible(
     }
 
     // Attach hashchange listener
-    if (defaults?.hashMode) {
+    if (defaults && defaults.hashMode) {
       addEventListener('hashchange', page);
     }
 
@@ -214,7 +214,7 @@ export default function Plausible(
         history.pushState = originalPushState;
         removeEventListener('popstate', page);
       }
-      if (defaults?.hashMode) {
+      if (defaults && defaults.hashMode) {
         removeEventListener('hashchange', page);
       }
     };
