@@ -8,3 +8,10 @@ node_js:
 cache:
   directories:
     - '$HOME/.npm'
+
+script:
+  - yarn global add codecov
+  - yarn test
+
+after_success:
+  - codecov
