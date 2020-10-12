@@ -21,7 +21,10 @@
     "sandboxed",
     "transpiled",
     "typedoc",
-    "untracked"
+    "untracked",
+    "pageview",
+    "pageviews",
+    "Plausible's"
   ],
   "flagWords": [],
   "ignorePaths": [
