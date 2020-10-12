@@ -1,5 +1,12 @@
 # Plausible Analytics Tracker
 
+[![NPM](https://flat.badgen.net/npm/v/plausible-tracker)](https://www.npmjs.com/package/plausible-tracker)  [![Bundle](https://flat.badgen.net/bundlephobia/minzip/plausible-tracker)](https://bundlephobia.com/result?p=plausible-tracker@latest)
+
+[![Build Status](https://travis-ci.com/Maronato/plausible-analytics.svg?branch=master)](https://travis-ci.com/Maronato/plausible-analytics) [![codecov](https://codecov.io/gh/Maronato/plausible-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/Maronato/plausible-tracker)
+
+
+[![dependencies Status](https://david-dm.org/maronato/plausible-tracker/status.svg)](https://david-dm.org/maronato/plausible-tracker) [![devDependencies Status](https://david-dm.org/maronato/plausible-tracker/dev-status.svg)](https://david-dm.org/maronato/plausible-tracker?type=dev)
+
 Unofficial frontend library to interact with [Plausible Analytics](https://plausible.io/).
 
 - [Plausible Analytics Tracker](#plausible-analytics-tracker)
@@ -13,6 +20,7 @@ Unofficial frontend library to interact with [Plausible Analytics](https://plaus
   - [Reference documentation](#reference-documentation)
 
 ## Features
+- Less than 1kb!
 - Same features as the official script, but as an NPM module
 - Automatically track page views in your SPA apps
 - Track goals and custom events
