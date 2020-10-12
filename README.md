@@ -2,7 +2,7 @@
 
 [![NPM](https://flat.badgen.net/npm/v/plausible-tracker)](https://www.npmjs.com/package/plausible-tracker)  [![Bundle](https://flat.badgen.net/bundlephobia/minzip/plausible-tracker)](https://bundlephobia.com/result?p=plausible-tracker@latest)
 
-[![Build Status](https://travis-ci.com/Maronato/plausible-analytics.svg?branch=master)](https://travis-ci.com/Maronato/plausible-analytics) [![codecov](https://codecov.io/gh/Maronato/plausible-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/Maronato/plausible-tracker)
+[![Build Status](https://travis-ci.com/Maronato/plausible-tracker.svg?branch=master)](https://travis-ci.com/Maronato/plausible-tracker) [![codecov](https://codecov.io/gh/Maronato/plausible-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/Maronato/plausible-tracker)
 
 
 [![dependencies Status](https://david-dm.org/maronato/plausible-tracker/status.svg)](https://david-dm.org/maronato/plausible-tracker) [![devDependencies Status](https://david-dm.org/maronato/plausible-tracker/dev-status.svg)](https://david-dm.org/maronato/plausible-tracker?type=dev)
