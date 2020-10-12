@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.7](https://github.com/Maronato/plausible-tracker/compare/v0.1.6...v0.1.7) (2020-10-12)
+
+
+### Bug Fixes
+
+* **tracker:** remove typescript-only '?' notation because it was not being transpiled properly ([594796f](https://github.com/Maronato/plausible-tracker/commit/594796fb0a4109e5494c2ae91cd875f06202c36b))
+
 ### [0.1.6](https://github.com/Maronato/plausible-tracker/compare/v0.1.5...v0.1.6) (2020-10-12)
 
 ### [0.1.5](https://github.com/Maronato/plausible-tracker/compare/v0.1.4...v0.1.5) (2020-10-12)
