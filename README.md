@@ -51,15 +51,15 @@ const plausible = Plausible({
 
 `Plausible()` accepts some optional options that you may want to provide:
 
-| Option         | Type               | Description                                                       | Default                     |
-| -------------- | ------------------ | ----------------------------------------------------------------- | --------------------------- |
-| domain         | `string`           | Your site's domain, as declared by you in Plausible's settings    | `location.hostname`         |
-| hashMode       | `bool`             | Enables tracking based on URL hash changes.                       | `false`                     |
-| trackLocalhost | `bool`             | Enables tracking on *localhost*.                                  | `false`                     |
-| url            | `string`           | Current page's URL.                                               | `location.href`             |
-| referrer       | `string` or `null` | Referrer's address                                                | `document.referrer || null` |
-| deviceWidth    | `number`           | User's device width for device tracking.                          | `window.innerWidth`         |
-| apiHost        | `string`           | Plausible's API host to use. Change this if you are self-hosting. | `'https://plausible.io'`    |
+| Option         | Type               | Description                                                       | Default                  |
+| -------------- | ------------------ | ----------------------------------------------------------------- | ------------------------ |
+| domain         | `string`           | Your site's domain, as declared by you in Plausible's settings    | `location.hostname`      |
+| hashMode       | `bool`             | Enables tracking based on URL hash changes.                       | `false`                  |
+| trackLocalhost | `bool`             | Enables tracking on *localhost*.                                  | `false`                  |
+| url            | `string`           | Current page's URL.                                               | `location.href`          |
+| referrer       | `string` or `null` | Referrer's address                                                | `document.referrer`      |
+| deviceWidth    | `number`           | User's device width for device tracking.                          | `window.innerWidth`      |
+| apiHost        | `string`           | Plausible's API host to use. Change this if you are self-hosting. | `'https://plausible.io'` |
 
 The object returned from `Plausible()` contains the functions that you'll use to track your events. These functions are:
 
