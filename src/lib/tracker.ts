@@ -72,16 +72,19 @@ type TrackEvent = (
  * ```js
  * import Plausible from 'plausible-tracker'
  *
- * const { pageView } = Plausible()
+ * const { trackPageview } = Plausible()
  *
  * // Track a page view
- * pageView()
+ * trackPageview()
  * ```
  *
  * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
  * @param options - Event options. The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
  */
-type PageView = (eventData?: PlausibleOptions, options?: EventOptions) => void;
+type TrackPageview = (
+  eventData?: PlausibleOptions,
+  options?: EventOptions
+) => void;
 
 /**
  * Cleans up all event listeners attached.
@@ -97,25 +100,25 @@ type Cleanup = () => void;
  * ```js
  * import Plausible from 'plausible-tracker'
  *
- * const { enableAutoPageViews } = Plausible()
+ * const { enableAutoPageviews } = Plausible()
  *
  * // This tracks the current page view and all future ones as well
- * enableAutoPageViews()
+ * enableAutoPageviews()
  * ```
  *
  * The returned value is a callback that removes the added event listeners and restores `history.pushState`
  * ```js
  * import Plausible from 'plausible-tracker'
  *
- * const { enableAutoPageViews } = Plausible()
+ * const { enableAutoPageviews } = Plausible()
  *
- * const cleanup = enableAutoPageViews()
+ * const cleanup = enableAutoPageviews()
  *
  * // Remove event listeners and restore `history.pushState`
  * cleanup()
  * ```
  */
-type EnableAutoPageViews = () => Cleanup;
+type EnableAutoPageviews = () => Cleanup;
 
 /**
  * Initializes the tracker with your default values.
@@ -124,12 +127,12 @@ type EnableAutoPageViews = () => Cleanup;
  * ```js
  * import Plausible from 'plausible-tracker'
  *
- * const { enableAutoPageViews, trackEvent } = Plausible({
+ * const { enableAutoPageviews, trackEvent } = Plausible({
  *   domain: 'my-app-domain.com',
  *   hashMode: true
  * })
  *
- * enableAutoPageViews()
+ * enableAutoPageviews()
  *
  * function onUserRegister() {
  *   trackEvent('register')
@@ -140,12 +143,12 @@ type EnableAutoPageViews = () => Cleanup;
  * ```js
  * var Plausible = require('plausible-tracker');
  *
- * var { enableAutoPageViews, trackEvent } = Plausible({
+ * var { enableAutoPageviews, trackEvent } = Plausible({
  *   domain: 'my-app-domain.com',
  *   hashMode: true
  * })
  *
- * enableAutoPageViews()
+ * enableAutoPageviews()
  *
  * function onUserRegister() {
  *   trackEvent('register')
@@ -158,8 +161,8 @@ export default function Plausible(
   defaults?: PlausibleOptions
 ): {
   readonly trackEvent: TrackEvent;
-  readonly pageView: PageView;
-  readonly enableAutoPageViews: EnableAutoPageViews;
+  readonly trackPageview: TrackPageview;
+  readonly enableAutoPageviews: EnableAutoPageviews;
 } {
   const getConfig = (): Required<PlausibleOptions> => ({
     hashMode: false,
@@ -180,15 +183,15 @@ export default function Plausible(
     sendEvent(eventName, { ...getConfig(), ...eventData }, options);
   };
 
-  const pageView: PageView = (
+  const trackPageview: TrackPageview = (
     eventData?: PlausibleOptions,
     options?: EventOptions
   ) => {
     trackEvent('pageview', eventData, options);
   };
 
-  const enableAutoPageViews: EnableAutoPageViews = () => {
-    const page = () => pageView();
+  const enableAutoPageviews: EnableAutoPageviews = () => {
+    const page = () => trackPageview();
     // Attach pushState and popState listeners
     const originalPushState = history.pushState;
     if (originalPushState) {
@@ -206,7 +209,7 @@ export default function Plausible(
     }
 
     // Trigger first page view
-    pageView();
+    trackPageview();
 
     return function cleanup() {
       if (originalPushState) {
@@ -220,5 +223,5 @@ export default function Plausible(
     };
   };
 
-  return { trackEvent, pageView, enableAutoPageViews };
+  return { trackEvent, trackPageview, enableAutoPageviews };
 }

@@ -63,23 +63,23 @@ const plausible = Plausible({
 
 The object returned from `Plausible()` contains the functions that you'll use to track your events. These functions are:
 
-- `pageView()`: Tracks a single page view.
+- `trackPageview()`: Tracks a single page view.
 - `trackEvent()`: Tracks custom events and goals
-- `enableAutoPageViews()`: Enables automatic page view tracking for SPAs
+- `enableAutoPageviews()`: Enables automatic page view tracking for SPAs
 
 For the complete documentation on these functions and their parameters, check out the [reference documentation](https://maronato.github.io/plausible-tracker/).
 
 ### Tracking page views
 
-To track a page view, use the `pageView` function provided
+To track a page view, use the `trackPageview` function provided
 
 ```ts
 import Plausible from 'plausible-tracker'
 
-const { pageView } = Plausible()
+const { trackPageview } = Plausible()
 
 // Track a page view
-pageView()
+trackPageview()
 ```
 
 You may also override the values you provided when initializing the tracker by passing a similar object as the first parameter:
@@ -87,13 +87,13 @@ You may also override the values you provided when initializing the tracker by p
 ```ts
 import Plausible from 'plausible-tracker'
 
-const { pageView } = Plausible({
+const { trackPageview } = Plausible({
   // Provide a default referrer
   referrer: "facebook.com",
 })
 
 // And override it on this call
-pageView({ referrer: "google.com" })
+trackPageview({ referrer: "google.com" })
 ```
 
 The second parameter is an object with some options similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
@@ -103,23 +103,23 @@ The only supported option at the moment is `callback` – a function that is cal
 ```ts
 import Plausible from 'plausible-tracker'
 
-const { pageView } = Plausible()
+const { trackPageview } = Plausible()
 
 // And override it on this call
-pageView({}, { callback: () => console.log("Done!") })
+trackPageview({}, { callback: () => console.log("Done!") })
 ```
 
 ### Automatically tracking page views
 
-If your app is an SPA that uses JS-based routing, you'll need to use browser events to manually track page views. A built-in function `enableAutoPageViews` enables automatic tracking for you so you don't need to write custom logic.
+If your app is a SPA that uses JS-based routing, you'll need to use browser events to manually track page views. A built-in function `enableAutoPageviews` enables automatic tracking for you so you don't need to write custom logic.
 
 ```ts
 import Plausible from 'plausible-tracker'
 
-const { enableAutoPageViews } = Plausible()
+const { enableAutoPageviews } = Plausible()
 
 // This tracks the current page view and all future ones as well
-enableAutoPageViews()
+enableAutoPageviews()
 ```
 
 If your app uses URL hashes to represent pages, set `hashMode` to `true`:
@@ -127,26 +127,26 @@ If your app uses URL hashes to represent pages, set `hashMode` to `true`:
 ```ts
 import Plausible from 'plausible-tracker'
 
-const { enableAutoPageViews } = Plausible({
+const { enableAutoPageviews } = Plausible({
   hashMode: true
 })
 
 // Hash changes will also trigger page views
-enableAutoPageViews()
+enableAutoPageviews()
 ```
 
-The way it works is by overriding `history.pushState` and attaching event listeners to `popstate` and `hashchange` (only if you set `hashMode` to `true`). If your frontend framework uses other methods to manage navigation, you might want to write your own logic using `pageView` to manually trigger page views.
+The way it works is by overriding `history.pushState` and attaching event listeners to `popstate` and `hashchange` (only if you set `hashMode` to `true`). If your frontend framework uses other methods to manage navigation, you might want to write your own logic using `trackPageview` to manually trigger page views.
 
 #### Cleaning up the event listeners
 
-When you call `enableAutoPageViews()`, it adds some event listeners and overrides `history.pushState`. To remove them and restore `history.pushState`, call the cleanup function returned by `enableAutoPageViews()`:
+When you call `enableAutoPageviews()`, it adds some event listeners and overrides `history.pushState`. To remove them and restore `history.pushState`, call the cleanup function returned by `enableAutoPageviews()`:
 
 ```ts
 import Plausible from 'plausible-tracker'
 
-const { enableAutoPageViews } = Plausible()
+const { enableAutoPageviews } = Plausible()
 
-const cleanup = enableAutoPageViews()
+const cleanup = enableAutoPageviews()
 
 // ...
 
@@ -167,7 +167,7 @@ const { trackEvent } = Plausible()
 trackEvent('signup')
 ```
 
-As with [`pageView`](#tracking-page-views), you may also provide override values and a callback as the second and third parameters respectively:
+As with [`trackPageview`](#tracking-page-views), you may also provide override values and a callback as the second and third parameters respectively:
 
 ```ts
 import Plausible from 'plausible-tracker'

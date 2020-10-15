@@ -88,9 +88,9 @@ describe('tracker', () => {
   });
   describe('pageView', () => {
     test('tracks pageview', () => {
-      const { pageView } = Plausible();
+      const { trackPageview } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
-      pageView();
+      trackPageview();
       expect(requestSpy).toHaveBeenCalled();
       expect(requestSpy).toHaveBeenCalledWith(
         'pageview',
@@ -99,18 +99,18 @@ describe('tracker', () => {
       );
     });
     test('accepts data on pageview', () => {
-      const { pageView } = Plausible();
+      const { trackPageview } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
       const config: PlausibleOptions = getCustomData();
-      pageView(config);
+      trackPageview(config);
       expect(requestSpy).toHaveBeenCalled();
       expect(requestSpy).toHaveBeenCalledWith('pageview', config, undefined);
     });
     test('accepts event options on pageview', () => {
-      const { pageView } = Plausible();
+      const { trackPageview } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
       const options: requestModule.EventOptions = getEventOptions();
-      pageView({}, options);
+      trackPageview({}, options);
       expect(requestSpy).toHaveBeenCalled();
       expect(requestSpy).toHaveBeenCalledWith(
         'pageview',
@@ -119,11 +119,11 @@ describe('tracker', () => {
       );
     });
   });
-  describe('enableAutoPageViews', () => {
+  describe('enableAutoPageviews', () => {
     test('tracks first pageview', () => {
-      const { enableAutoPageViews } = Plausible();
+      const { enableAutoPageviews } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
-      const cleanup = enableAutoPageViews();
+      const cleanup = enableAutoPageviews();
       expect(requestSpy).toHaveBeenCalledWith(
         'pageview',
         getDefaultData(),
@@ -133,10 +133,10 @@ describe('tracker', () => {
     });
     test('does not track popstate if no history.pushState', () => {
       const originalPushState = history.pushState;
-      const { enableAutoPageViews } = Plausible();
+      const { enableAutoPageviews } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
       history.pushState = (null as unknown) as History['pushState'];
-      const cleanup = enableAutoPageViews();
+      const cleanup = enableAutoPageviews();
       expect(requestSpy).toHaveBeenCalledTimes(1);
       window.dispatchEvent(new PopStateEvent('popstate'));
       expect(requestSpy).toHaveBeenCalledTimes(1);
@@ -144,36 +144,36 @@ describe('tracker', () => {
       history.pushState = originalPushState;
     });
     test('tracks pageviews on push state', () => {
-      const { enableAutoPageViews } = Plausible();
+      const { enableAutoPageviews } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
-      const cleanup = enableAutoPageViews();
+      const cleanup = enableAutoPageviews();
       expect(requestSpy).toHaveBeenCalledTimes(1);
       history.pushState({}, 'second', '/url');
       expect(requestSpy).toHaveBeenCalledTimes(2);
       cleanup();
     });
     test('tracks pageviews on popstate', () => {
-      const { enableAutoPageViews } = Plausible();
+      const { enableAutoPageviews } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
-      const cleanup = enableAutoPageViews();
+      const cleanup = enableAutoPageviews();
       expect(requestSpy).toHaveBeenCalledTimes(1);
       window.dispatchEvent(new PopStateEvent('popstate'));
       expect(requestSpy).toHaveBeenCalledTimes(2);
       cleanup();
     });
     test('does not track hashchange by default', () => {
-      const { enableAutoPageViews } = Plausible();
+      const { enableAutoPageviews } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
-      const cleanup = enableAutoPageViews();
+      const cleanup = enableAutoPageviews();
       expect(requestSpy).toHaveBeenCalledTimes(1);
       window.dispatchEvent(new HashChangeEvent('hashchange'));
       expect(requestSpy).toHaveBeenCalledTimes(1);
       cleanup();
     });
     test('tracks hashchange if specified', () => {
-      const { enableAutoPageViews } = Plausible({ hashMode: true });
+      const { enableAutoPageviews } = Plausible({ hashMode: true });
       expect(requestSpy).not.toHaveBeenCalled();
-      const cleanup = enableAutoPageViews();
+      const cleanup = enableAutoPageviews();
       expect(requestSpy).toHaveBeenCalledTimes(1);
       window.dispatchEvent(new HashChangeEvent('hashchange'));
       expect(requestSpy).toHaveBeenCalledTimes(2);
