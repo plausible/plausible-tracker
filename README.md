@@ -79,7 +79,7 @@ const { trackPageview } = Plausible()
 trackPageview()
 ```
 
-You may also override the values you provided when initializing the tracker by passing a [similar object](https://maronato.github.io/plausible-tracker/globals.html#plausibleinitoptions) as the first parameter.
+You may also override the values you provided when initializing the tracker by passing a [similar object](https://maronato.github.io/plausible-tracker/globals.html#plausibleoptions) as the first parameter.
 
 This object takes the same options as the initialization one, plus the following:
 
