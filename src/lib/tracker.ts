@@ -26,9 +26,9 @@ export type PlausibleInitOptions = {
 };
 
 /**
- * Options used when tracking Plausible events.
+ * Data passed to Plausible as events.
  */
-export type PlausibleOptions = PlausibleInitOptions & {
+export type PlausibleEventData = {
   /**
    * The URL to bind the event to.
    * Defaults to `location.href`.
@@ -45,6 +45,11 @@ export type PlausibleOptions = PlausibleInitOptions & {
    */
   readonly deviceWidth?: Window['innerWidth'];
 };
+
+/**
+ * Options used when tracking Plausible events.
+ */
+export type PlausibleOptions = PlausibleInitOptions & PlausibleEventData;
 
 /**
  * Tracks a custom event.
