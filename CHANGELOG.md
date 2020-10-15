@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [0.2.0](https://github.com/Maronato/plausible-tracker/compare/v0.1.11...v0.2.0) (2020-10-15)
+
+
+### ⚠ BREAKING CHANGES
+
+* **tracker:** Removed `url`, `referrer` and `deviceWidth` from the type definitions of the
+initialization function.
+* **tracker:** `pageView()` becomes `trackPageview()` and `enableAutoPageViews()` becomes
+`enableAutoPageviews()` Their type aliases names also changed, so `PageView` becomes `TrackPageview`
+and `EnableAutoPageViews` becomes `EnableAutoPageviews`.
+
+* **tracker:** "PageViews" are now a single word "pageview" ([892d8fe](https://github.com/Maronato/plausible-tracker/commit/892d8feb5941cc05c25f91b2e729e8676b9475c5))
+* **tracker:** the initialization function now takes only a subset of all event options ([c7f1590](https://github.com/Maronato/plausible-tracker/commit/c7f1590101241961033000322c57e907dd55d51c))
+
 ### [0.1.11](https://github.com/Maronato/plausible-tracker/compare/v0.1.10...v0.1.11) (2020-10-12)
 
 ### [0.1.10](https://github.com/Maronato/plausible-tracker/compare/v0.1.9...v0.1.10) (2020-10-12)

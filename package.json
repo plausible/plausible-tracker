@@ -1,6 +1,6 @@
 {
   "name": "plausible-tracker",
-  "version": "0.1.11",
+  "version": "0.2.0",
   "description": "Unofficial frontend tracker to interact with Plausible Analytics",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
