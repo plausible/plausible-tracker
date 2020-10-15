@@ -115,7 +115,7 @@ yarn add plausible-tracker</code></pre>
 <span class="hljs-keyword">const</span> plausible = Plausible({
   domain: <span class="hljs-string">&#x27;my-app.com&#x27;</span>
 })</code></pre>
-				<p><code>Plausible()</code> accepts some optional options that you may want to provide:</p>
+				<p><code>Plausible()</code> accepts some <a href="https://maronato.github.io/plausible-tracker/globals.html#plausibleinitoptions">options</a> that you may want to provide:</p>
 				<table>
 					<thead>
 						<tr>
@@ -144,6 +144,41 @@ yarn add plausible-tracker</code></pre>
 							<td><code>false</code></td>
 						</tr>
 						<tr>
+							<td>apiHost</td>
+							<td><code>string</code></td>
+							<td>Plausible&#39;s API host to use. Change this if you are self-hosting.</td>
+							<td><code>&#39;https://plausible.io&#39;</code></td>
+						</tr>
+				</tbody></table>
+				<p>The object returned from <code>Plausible()</code> contains the functions that you&#39;ll use to track your events. These functions are:</p>
+				<ul>
+					<li><a href="https://maronato.github.io/plausible-tracker/globals.html#trackpageview"><code>trackPageview()</code></a>: Tracks a single page view.</li>
+					<li><a href="https://maronato.github.io/plausible-tracker/globals.html#trackevent"><code>trackEvent()</code></a>: Tracks custom events and goals</li>
+					<li><a href="https://maronato.github.io/plausible-tracker/globals.html#enableautopageviews"><code>enableAutoPageviews()</code></a>: Enables automatic page view tracking for SPAs</li>
+				</ul>
+				<p>For the complete documentation on these functions and their parameters, check out the <a href="https://maronato.github.io/plausible-tracker/">reference documentation</a>.</p>
+				<a href="#tracking-page-views" id="tracking-page-views" style="color: inherit; text-decoration: none;">
+					<h3>Tracking page views</h3>
+				</a>
+				<p>To track a page view, use the <code>trackPageview</code> function provided</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
+
+<span class="hljs-keyword">const</span> { trackPageview } = Plausible()
+
+<span class="hljs-comment">// Track a page view</span>
+trackPageview()</code></pre>
+				<p>You may also override the values you provided when initializing the tracker by passing a <a href="https://maronato.github.io/plausible-tracker/globals.html#plausibleinitoptions">similar object</a> as the first parameter.</p>
+				<p>This object takes the same options as the initialization one, plus the following:</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Option</th>
+							<th>Type</th>
+							<th>Description</th>
+							<th>Default</th>
+						</tr>
+					</thead>
+					<tbody><tr>
 							<td>url</td>
 							<td><code>string</code></td>
 							<td>Current page&#39;s URL.</td>
@@ -161,77 +196,56 @@ yarn add plausible-tracker</code></pre>
 							<td>User&#39;s device width for device tracking.</td>
 							<td><code>window.innerWidth</code></td>
 						</tr>
-						<tr>
-							<td>apiHost</td>
-							<td><code>string</code></td>
-							<td>Plausible&#39;s API host to use. Change this if you are self-hosting.</td>
-							<td><code>&#39;https://plausible.io&#39;</code></td>
-						</tr>
 				</tbody></table>
-				<p>The object returned from <code>Plausible()</code> contains the functions that you&#39;ll use to track your events. These functions are:</p>
-				<ul>
-					<li><code>pageView()</code>: Tracks a single page view.</li>
-					<li><code>trackEvent()</code>: Tracks custom events and goals</li>
-					<li><code>enableAutoPageViews()</code>: Enables automatic page view tracking for SPAs</li>
-				</ul>
-				<p>For the complete documentation on these functions and their parameters, check out the <a href="https://maronato.github.io/plausible-tracker/">reference documentation</a>.</p>
-				<a href="#tracking-page-views" id="tracking-page-views" style="color: inherit; text-decoration: none;">
-					<h3>Tracking page views</h3>
-				</a>
-				<p>To track a page view, use the <code>pageView</code> function provided</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { pageView } = Plausible()
-
-<span class="hljs-comment">// Track a page view</span>
-pageView()</code></pre>
-				<p>You may also override the values you provided when initializing the tracker by passing a similar object as the first parameter:</p>
-				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
-
-<span class="hljs-keyword">const</span> { pageView } = Plausible({
-  <span class="hljs-comment">// Provide a default referrer</span>
-  referrer: <span class="hljs-string">&quot;facebook.com&quot;</span>,
+<span class="hljs-keyword">const</span> { trackPageview } = Plausible({
+  <span class="hljs-comment">// Track localhost by default</span>
+  trackLocalhost: <span class="hljs-literal">true</span>,
 })
 
-<span class="hljs-comment">// And override it on this call</span>
-pageView({ referrer: <span class="hljs-string">&quot;google.com&quot;</span> })</code></pre>
-				<p>The second parameter is an object with some options similar to the ones provided by the <a href="https://docs.plausible.io/custom-event-goals">official Plausible script</a>. </p>
+<span class="hljs-comment">// Override it on this call and also set a custom url</span>
+trackPageview({
+  trackLocalhost: <span class="hljs-literal">false</span>,
+  url: <span class="hljs-string">&quot;https://my-app.com/my-url&quot;</span>
+})</code></pre>
+				<p>The second parameter is an object with <a href="https://maronato.github.io/plausible-tracker/globals.html#eventoptions">some options</a> similar to the ones provided by the <a href="https://docs.plausible.io/custom-event-goals">official Plausible script</a>. </p>
 				<p>The only supported option at the moment is <code>callback</code> – a function that is called once the event is logged successfully.</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { pageView } = Plausible()
+<span class="hljs-keyword">const</span> { trackPageview } = Plausible()
 
 <span class="hljs-comment">// And override it on this call</span>
-pageView({}, { callback: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Done!&quot;</span>) })</code></pre>
+trackPageview({}, { callback: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&quot;Done!&quot;</span>) })</code></pre>
 				<a href="#automatically-tracking-page-views" id="automatically-tracking-page-views" style="color: inherit; text-decoration: none;">
 					<h3>Automatically tracking page views</h3>
 				</a>
-				<p>If your app is an SPA that uses JS-based routing, you&#39;ll need to use browser events to manually track page views. A built-in function <code>enableAutoPageViews</code> enables automatic tracking for you so you don&#39;t need to write custom logic.</p>
+				<p>If your app is a SPA that uses JS-based routing, you&#39;ll need to use browser events to manually track page views. A built-in function <code>enableAutoPageviews</code> enables automatic tracking for you so you don&#39;t need to write custom logic.</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { enableAutoPageViews } = Plausible()
+<span class="hljs-keyword">const</span> { enableAutoPageviews } = Plausible()
 
 <span class="hljs-comment">// This tracks the current page view and all future ones as well</span>
-enableAutoPageViews()</code></pre>
+enableAutoPageviews()</code></pre>
 				<p>If your app uses URL hashes to represent pages, set <code>hashMode</code> to <code>true</code>:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { enableAutoPageViews } = Plausible({
+<span class="hljs-keyword">const</span> { enableAutoPageviews } = Plausible({
   hashMode: <span class="hljs-literal">true</span>
 })
 
 <span class="hljs-comment">// Hash changes will also trigger page views</span>
-enableAutoPageViews()</code></pre>
-				<p>The way it works is by overriding <code>history.pushState</code> and attaching event listeners to <code>popstate</code> and <code>hashchange</code> (only if you set <code>hashMode</code> to <code>true</code>). If your frontend framework uses other methods to manage navigation, you might want to write your own logic using <code>pageView</code> to manually trigger page views.</p>
+enableAutoPageviews()</code></pre>
+				<p>The way it works is by overriding <code>history.pushState</code> and attaching event listeners to <code>popstate</code> and <code>hashchange</code> (only if you set <code>hashMode</code> to <code>true</code>). If your frontend framework uses other methods to manage navigation, you might want to write your own logic using <code>trackPageview</code> to manually trigger page views.</p>
 				<a href="#cleaning-up-the-event-listeners" id="cleaning-up-the-event-listeners" style="color: inherit; text-decoration: none;">
 					<h4>Cleaning up the event listeners</h4>
 				</a>
-				<p>When you call <code>enableAutoPageViews()</code>, it adds some event listeners and overrides <code>history.pushState</code>. To remove them and restore <code>history.pushState</code>, call the cleanup function returned by <code>enableAutoPageViews()</code>:</p>
+				<p>When you call <code>enableAutoPageviews()</code>, it adds some event listeners and overrides <code>history.pushState</code>. To remove them and restore <code>history.pushState</code>, call the cleanup function returned by <code>enableAutoPageviews()</code>:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { enableAutoPageViews } = Plausible()
+<span class="hljs-keyword">const</span> { enableAutoPageviews } = Plausible()
 
-<span class="hljs-keyword">const</span> cleanup = enableAutoPageViews()
+<span class="hljs-keyword">const</span> cleanup = enableAutoPageviews()
 
 <span class="hljs-comment">// ...</span>
 
@@ -247,17 +261,17 @@ cleanup()</code></pre>
 
 <span class="hljs-comment">// Tracks the &#x27;signup&#x27; goal</span>
 trackEvent(<span class="hljs-string">&#x27;signup&#x27;</span>)</code></pre>
-				<p>As with <a href="#tracking-page-views"><code>pageView</code></a>, you may also provide override values and a callback as the second and third parameters respectively:</p>
+				<p>As with <a href="#tracking-page-views"><code>trackPageview</code></a>, you may also provide override values and a callback as the second and third parameters respectively:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
 <span class="hljs-keyword">const</span> { trackEvent } = Plausible({
-  referrer: <span class="hljs-string">&#x27;facebook.com&#x27;</span>,
+  trackLocalhost: <span class="hljs-literal">false</span>,
 })
 
 <span class="hljs-comment">// Tracks the &#x27;signup&#x27; goal with a different referrer and a callback</span>
 trackEvent(
   <span class="hljs-string">&#x27;signup&#x27;</span>,
-  { referrer: <span class="hljs-string">&#x27;google.com&#x27;</span> },
+  { trackLocalhost: <span class="hljs-literal">true</span> },
   { callback: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;done&#x27;</span>) }
 );</code></pre>
 				<a href="#reference-documentation" id="reference-documentation" style="color: inherit; text-decoration: none;">
@@ -280,19 +294,22 @@ trackEvent(
 						<a href="globals.html#cleanup" class="tsd-kind-icon">Cleanup</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Page<wbr>Views</a>
+						<a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Pageviews</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#eventoptions" class="tsd-kind-icon">Event<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#pageview" class="tsd-kind-icon">Page<wbr>View</a>
+						<a href="globals.html#plausibleinitoptions" class="tsd-kind-icon">Plausible<wbr>Init<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#plausibleoptions" class="tsd-kind-icon">Plausible<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#trackevent" class="tsd-kind-icon">Track<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#trackpageview" class="tsd-kind-icon">Track<wbr>Pageview</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#plausible" class="tsd-kind-icon">Plausible</a>

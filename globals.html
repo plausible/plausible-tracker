@@ -71,11 +71,12 @@
 							<h3>Type aliases</h3>
 							<ul class="tsd-index-list">
 								<li class="tsd-kind-type-alias"><a href="globals.html#cleanup" class="tsd-kind-icon">Cleanup</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Page<wbr>Views</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Pageviews</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#eventoptions" class="tsd-kind-icon">Event<wbr>Options</a></li>
-								<li class="tsd-kind-type-alias"><a href="globals.html#pageview" class="tsd-kind-icon">Page<wbr>View</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#plausibleinitoptions" class="tsd-kind-icon">Plausible<wbr>Init<wbr>Options</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#plausibleoptions" class="tsd-kind-icon">Plausible<wbr>Options</a></li>
 								<li class="tsd-kind-type-alias"><a href="globals.html#trackevent" class="tsd-kind-icon">Track<wbr>Event</a></li>
+								<li class="tsd-kind-type-alias"><a href="globals.html#trackpageview" class="tsd-kind-icon">Track<wbr>Pageview</a></li>
 							</ul>
 						</section>
 						<section class="tsd-index-section ">
@@ -95,7 +96,7 @@
 					<div class="tsd-signature tsd-kind-icon">Cleanup<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/tracker.ts#L89">lib/tracker.ts:89</a></li>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L98">lib/tracker.ts:98</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -121,11 +122,11 @@
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
 					<a name="enableautopageviews" class="tsd-anchor"></a>
-					<h3>Enable<wbr>Auto<wbr>Page<wbr>Views</h3>
-					<div class="tsd-signature tsd-kind-icon">Enable<wbr>Auto<wbr>Page<wbr>Views<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="globals.html#cleanup" class="tsd-signature-type">Cleanup</a></div>
+					<h3>Enable<wbr>Auto<wbr>Pageviews</h3>
+					<div class="tsd-signature tsd-kind-icon">Enable<wbr>Auto<wbr>Pageviews<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="globals.html#cleanup" class="tsd-signature-type">Cleanup</a></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/tracker.ts#L118">lib/tracker.ts:118</a></li>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L127">lib/tracker.ts:127</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -138,16 +139,16 @@
 						</a>
 						<pre><code class="language-js"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { enableAutoPageViews } = Plausible()
+<span class="hljs-keyword">const</span> { enableAutoPageviews } = Plausible()
 
 <span class="hljs-comment">// This tracks the current page view and all future ones as well</span>
-enableAutoPageViews()</code></pre>
+enableAutoPageviews()</code></pre>
 						<p>The returned value is a callback that removes the added event listeners and restores <code>history.pushState</code></p>
 						<pre><code class="language-js"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { enableAutoPageViews } = Plausible()
+<span class="hljs-keyword">const</span> { enableAutoPageviews } = Plausible()
 
-<span class="hljs-keyword">const</span> cleanup = enableAutoPageViews()
+<span class="hljs-keyword">const</span> cleanup = enableAutoPageviews()
 
 <span class="hljs-comment">// Remove event listeners and restore `history.pushState`</span>
 cleanup()</code></pre>
@@ -174,7 +175,7 @@ cleanup()</code></pre>
 					<div class="tsd-signature tsd-kind-icon">Event<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>callback<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/request.ts#L15">lib/request.ts:15</a></li>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/request.ts#L15">lib/request.ts:15</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-type-declaration">
@@ -187,73 +188,17 @@ cleanup()</code></pre>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
-					<a name="pageview" class="tsd-anchor"></a>
-					<h3>Page<wbr>View</h3>
-					<div class="tsd-signature tsd-kind-icon">Page<wbr>View<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>eventData<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a>, options<span class="tsd-signature-symbol">?: </span><a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<a name="plausibleinitoptions" class="tsd-anchor"></a>
+					<h3>Plausible<wbr>Init<wbr>Options</h3>
+					<div class="tsd-signature tsd-kind-icon">Plausible<wbr>Init<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>apiHost<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>domain<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Location</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"hostname"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">; </span>hashMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>trackLocalhost<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> }</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/tracker.ts#L84">lib/tracker.ts:84</a></li>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L6">lib/tracker.ts:6</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
 						<div class="lead">
-							<p>Manually tracks a page view.</p>
-						</div>
-						<a href="#example" id="example" style="color: inherit; text-decoration: none;">
-							<h3>Example</h3>
-						</a>
-						<pre><code class="language-js"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
-
-<span class="hljs-keyword">const</span> { pageView } = Plausible()
-
-<span class="hljs-comment">// Track a page view</span>
-pageView()</code></pre>
-						<dl class="tsd-comment-tags">
-							<dt>param</dt>
-							<dd><p>Optional event data to send. Defaults to the current page&#39;s data merged with the default options provided earlier.</p>
-							</dd>
-							<dt>param</dt>
-							<dd><p>Event options. The only supported option at the moment is <code>callback</code> – a function that is called once the event is logged successfully.</p>
-							</dd>
-						</dl>
-					</div>
-					<div class="tsd-type-declaration">
-						<h4>Type declaration</h4>
-						<ul class="tsd-parameters">
-							<li class="tsd-parameter-signature">
-								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
-									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>eventData<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a>, options<span class="tsd-signature-symbol">?: </span><a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
-								</ul>
-								<ul class="tsd-descriptions">
-									<li class="tsd-description">
-										<h4 class="tsd-parameters-title">Parameters</h4>
-										<ul class="tsd-parameters">
-											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> eventData: <a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a></h5>
-											</li>
-											<li>
-												<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a></h5>
-											</li>
-										</ul>
-										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
-									</li>
-								</ul>
-							</li>
-						</ul>
-					</div>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-type-alias">
-					<a name="plausibleoptions" class="tsd-anchor"></a>
-					<h3>Plausible<wbr>Options</h3>
-					<div class="tsd-signature tsd-kind-icon">Plausible<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{ </span>apiHost<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">; </span>deviceWidth<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Window</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"innerWidth"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">; </span>domain<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Location</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"hostname"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">; </span>hashMode<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>referrer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"referrer"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>trackLocalhost<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Location</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"href"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> }</span></div>
-					<aside class="tsd-sources">
-						<ul>
-							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/tracker.ts#L6">lib/tracker.ts:6</a></li>
-						</ul>
-					</aside>
-					<div class="tsd-comment tsd-typography">
-						<div class="lead">
-							<p>Options used when tracking Plausible events.</p>
+							<p>Options used when initializing the tracker.</p>
 						</div>
 					</div>
 					<div class="tsd-type-declaration">
@@ -265,15 +210,6 @@ pageView()</code></pre>
 									<div class="lead">
 										<p>The API host where the events will be sent.
 										Defaults to <code>&#39;https://plausible.io&#39;</code></p>
-									</div>
-								</div>
-							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> device<wbr>Width<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Window</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"innerWidth"</span><span class="tsd-signature-symbol">]</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>The current device&#39;s width.
-										Defaults to <code>window.innerWidth</code></p>
 									</div>
 								</div>
 							</li>
@@ -296,15 +232,6 @@ pageView()</code></pre>
 								</div>
 							</li>
 							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> referrer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"referrer"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>The referrer to bind the event to.
-										Defaults to <code>document.referrer</code></p>
-									</div>
-								</div>
-							</li>
-							<li class="tsd-parameter">
 								<h5><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> track<wbr>Localhost<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span></h5>
 								<div class="tsd-comment tsd-typography">
 									<div class="lead">
@@ -312,16 +239,22 @@ pageView()</code></pre>
 									</div>
 								</div>
 							</li>
-							<li class="tsd-parameter">
-								<h5><span class="tsd-flag ts-flagOptional">Optional</span> <span class="tsd-flag ts-flagReadonly">Readonly</span> url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Location</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"href"</span><span class="tsd-signature-symbol">]</span></h5>
-								<div class="tsd-comment tsd-typography">
-									<div class="lead">
-										<p>The URL to bind the event to.
-										Defaults to <code>location.href</code>.</p>
-									</div>
-								</div>
-							</li>
 						</ul>
+					</div>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="plausibleoptions" class="tsd-anchor"></a>
+					<h3>Plausible<wbr>Options</h3>
+					<div class="tsd-signature tsd-kind-icon">Plausible<wbr>Options<span class="tsd-signature-symbol">:</span> <a href="globals.html#plausibleinitoptions" class="tsd-signature-type">PlausibleInitOptions</a><span class="tsd-signature-symbol"> &amp; </span><span class="tsd-signature-symbol">{ </span>deviceWidth<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Window</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"innerWidth"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol">; </span>referrer<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Document</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"referrer"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">null</span><span class="tsd-signature-symbol">; </span>url<span class="tsd-signature-symbol">?: </span><span class="tsd-signature-type">Location</span><span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">"href"</span><span class="tsd-signature-symbol">]</span><span class="tsd-signature-symbol"> }</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L31">lib/tracker.ts:31</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Options used when tracking Plausible events.</p>
+						</div>
 					</div>
 				</section>
 				<section class="tsd-panel tsd-member tsd-kind-type-alias">
@@ -330,7 +263,7 @@ pageView()</code></pre>
 					<div class="tsd-signature tsd-kind-icon">Track<wbr>Event<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>eventName<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">string</span>, eventData<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a>, options<span class="tsd-signature-symbol">?: </span><a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/tracker.ts#L62">lib/tracker.ts:62</a></li>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L68">lib/tracker.ts:68</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -387,6 +320,62 @@ trackEvent(<span class="hljs-string">&#x27;signup&#x27;</span>)</code></pre>
 						</ul>
 					</div>
 				</section>
+				<section class="tsd-panel tsd-member tsd-kind-type-alias">
+					<a name="trackpageview" class="tsd-anchor"></a>
+					<h3>Track<wbr>Pageview</h3>
+					<div class="tsd-signature tsd-kind-icon">Track<wbr>Pageview<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span>eventData<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a>, options<span class="tsd-signature-symbol">?: </span><a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">void</span></div>
+					<aside class="tsd-sources">
+						<ul>
+							<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L90">lib/tracker.ts:90</a></li>
+						</ul>
+					</aside>
+					<div class="tsd-comment tsd-typography">
+						<div class="lead">
+							<p>Manually tracks a page view.</p>
+						</div>
+						<a href="#example" id="example" style="color: inherit; text-decoration: none;">
+							<h3>Example</h3>
+						</a>
+						<pre><code class="language-js"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
+
+<span class="hljs-keyword">const</span> { trackPageview } = Plausible()
+
+<span class="hljs-comment">// Track a page view</span>
+trackPageview()</code></pre>
+						<dl class="tsd-comment-tags">
+							<dt>param</dt>
+							<dd><p>Optional event data to send. Defaults to the current page&#39;s data merged with the default options provided earlier.</p>
+							</dd>
+							<dt>param</dt>
+							<dd><p>Event options. The only supported option at the moment is <code>callback</code> – a function that is called once the event is logged successfully.</p>
+							</dd>
+						</dl>
+					</div>
+					<div class="tsd-type-declaration">
+						<h4>Type declaration</h4>
+						<ul class="tsd-parameters">
+							<li class="tsd-parameter-signature">
+								<ul class="tsd-signatures tsd-kind-type-literal tsd-parent-kind-type-alias">
+									<li class="tsd-signature tsd-kind-icon"><span class="tsd-signature-symbol">(</span>eventData<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a>, options<span class="tsd-signature-symbol">?: </span><a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
+								</ul>
+								<ul class="tsd-descriptions">
+									<li class="tsd-description">
+										<h4 class="tsd-parameters-title">Parameters</h4>
+										<ul class="tsd-parameters">
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> eventData: <a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a></h5>
+											</li>
+											<li>
+												<h5><span class="tsd-flag ts-flagOptional">Optional</span> options: <a href="globals.html#eventoptions" class="tsd-signature-type">EventOptions</a></h5>
+											</li>
+										</ul>
+										<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</section>
 			</section>
 			<section class="tsd-panel-group tsd-member-group ">
 				<h2>Functions</h2>
@@ -394,13 +383,13 @@ trackEvent(<span class="hljs-string">&#x27;signup&#x27;</span>)</code></pre>
 					<a name="plausible" class="tsd-anchor"></a>
 					<h3>Plausible</h3>
 					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">Plausible<span class="tsd-signature-symbol">(</span>defaults<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>enableAutoPageViews<span class="tsd-signature-symbol">: </span><a href="globals.html#enableautopageviews" class="tsd-signature-type">EnableAutoPageViews</a><span class="tsd-signature-symbol">; </span>pageView<span class="tsd-signature-symbol">: </span><a href="globals.html#pageview" class="tsd-signature-type">PageView</a><span class="tsd-signature-symbol">; </span>trackEvent<span class="tsd-signature-symbol">: </span><a href="globals.html#trackevent" class="tsd-signature-type">TrackEvent</a><span class="tsd-signature-symbol"> }</span></li>
+						<li class="tsd-signature tsd-kind-icon">Plausible<span class="tsd-signature-symbol">(</span>defaults<span class="tsd-signature-symbol">?: </span><a href="globals.html#plausibleinitoptions" class="tsd-signature-type">PlausibleInitOptions</a><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-symbol">{ </span>enableAutoPageviews<span class="tsd-signature-symbol">: </span><a href="globals.html#enableautopageviews" class="tsd-signature-type">EnableAutoPageviews</a><span class="tsd-signature-symbol">; </span>trackEvent<span class="tsd-signature-symbol">: </span><a href="globals.html#trackevent" class="tsd-signature-type">TrackEvent</a><span class="tsd-signature-symbol">; </span>trackPageview<span class="tsd-signature-symbol">: </span><a href="globals.html#trackpageview" class="tsd-signature-type">TrackPageview</a><span class="tsd-signature-symbol"> }</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/8add335/src/lib/tracker.ts#L157">lib/tracker.ts:157</a></li>
+									<li>Defined in <a href="https://github.com/Maronato/plausible-tracker/blob/c7f1590/src/lib/tracker.ts#L166">lib/tracker.ts:166</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -412,12 +401,12 @@ trackEvent(<span class="hljs-string">&#x27;signup&#x27;</span>)</code></pre>
 								</a>
 								<pre><code class="language-js"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
-<span class="hljs-keyword">const</span> { enableAutoPageViews, trackEvent } = Plausible({
+<span class="hljs-keyword">const</span> { enableAutoPageviews, trackEvent } = Plausible({
   <span class="hljs-attr">domain</span>: <span class="hljs-string">&#x27;my-app-domain.com&#x27;</span>,
   <span class="hljs-attr">hashMode</span>: <span class="hljs-literal">true</span>
 })
 
-enableAutoPageViews()
+enableAutoPageviews()
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onUserRegister</span>(<span class="hljs-params"></span>) </span>{
   trackEvent(<span class="hljs-string">&#x27;register&#x27;</span>)
@@ -427,12 +416,12 @@ enableAutoPageViews()
 								</a>
 								<pre><code class="language-js"><span class="hljs-keyword">var</span> Plausible = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;plausible-tracker&#x27;</span>);
 
-<span class="hljs-keyword">var</span> { enableAutoPageViews, trackEvent } = Plausible({
+<span class="hljs-keyword">var</span> { enableAutoPageviews, trackEvent } = Plausible({
   <span class="hljs-attr">domain</span>: <span class="hljs-string">&#x27;my-app-domain.com&#x27;</span>,
   <span class="hljs-attr">hashMode</span>: <span class="hljs-literal">true</span>
 })
 
-enableAutoPageViews()
+enableAutoPageviews()
 
 <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">onUserRegister</span>(<span class="hljs-params"></span>) </span>{
   trackEvent(<span class="hljs-string">&#x27;register&#x27;</span>)
@@ -441,22 +430,22 @@ enableAutoPageViews()
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
 								<li>
-									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaults: <a href="globals.html#plausibleoptions" class="tsd-signature-type">PlausibleOptions</a></h5>
+									<h5><span class="tsd-flag ts-flagOptional">Optional</span> defaults: <a href="globals.html#plausibleinitoptions" class="tsd-signature-type">PlausibleInitOptions</a></h5>
 									<div class="tsd-comment tsd-typography">
 										<p>Default event parameters that will be applied to all requests.</p>
 									</div>
 								</li>
 							</ul>
-							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>enableAutoPageViews<span class="tsd-signature-symbol">: </span><a href="globals.html#enableautopageviews" class="tsd-signature-type">EnableAutoPageViews</a><span class="tsd-signature-symbol">; </span>pageView<span class="tsd-signature-symbol">: </span><a href="globals.html#pageview" class="tsd-signature-type">PageView</a><span class="tsd-signature-symbol">; </span>trackEvent<span class="tsd-signature-symbol">: </span><a href="globals.html#trackevent" class="tsd-signature-type">TrackEvent</a><span class="tsd-signature-symbol"> }</span></h4>
+							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-symbol">{ </span>enableAutoPageviews<span class="tsd-signature-symbol">: </span><a href="globals.html#enableautopageviews" class="tsd-signature-type">EnableAutoPageviews</a><span class="tsd-signature-symbol">; </span>trackEvent<span class="tsd-signature-symbol">: </span><a href="globals.html#trackevent" class="tsd-signature-type">TrackEvent</a><span class="tsd-signature-symbol">; </span>trackPageview<span class="tsd-signature-symbol">: </span><a href="globals.html#trackpageview" class="tsd-signature-type">TrackPageview</a><span class="tsd-signature-symbol"> }</span></h4>
 							<ul class="tsd-parameters">
 								<li class="tsd-parameter">
-									<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> enable<wbr>Auto<wbr>Page<wbr>Views<span class="tsd-signature-symbol">: </span><a href="globals.html#enableautopageviews" class="tsd-signature-type">EnableAutoPageViews</a></h5>
-								</li>
-								<li class="tsd-parameter">
-									<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> page<wbr>View<span class="tsd-signature-symbol">: </span><a href="globals.html#pageview" class="tsd-signature-type">PageView</a></h5>
+									<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> enable<wbr>Auto<wbr>Pageviews<span class="tsd-signature-symbol">: </span><a href="globals.html#enableautopageviews" class="tsd-signature-type">EnableAutoPageviews</a></h5>
 								</li>
 								<li class="tsd-parameter">
 									<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> track<wbr>Event<span class="tsd-signature-symbol">: </span><a href="globals.html#trackevent" class="tsd-signature-type">TrackEvent</a></h5>
+								</li>
+								<li class="tsd-parameter">
+									<h5><span class="tsd-flag ts-flagReadonly">Readonly</span> track<wbr>Pageview<span class="tsd-signature-symbol">: </span><a href="globals.html#trackpageview" class="tsd-signature-type">TrackPageview</a></h5>
 								</li>
 							</ul>
 						</li>
@@ -478,19 +467,22 @@ enableAutoPageViews()
 						<a href="globals.html#cleanup" class="tsd-kind-icon">Cleanup</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Page<wbr>Views</a>
+						<a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Pageviews</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#eventoptions" class="tsd-kind-icon">Event<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
-						<a href="globals.html#pageview" class="tsd-kind-icon">Page<wbr>View</a>
+						<a href="globals.html#plausibleinitoptions" class="tsd-kind-icon">Plausible<wbr>Init<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#plausibleoptions" class="tsd-kind-icon">Plausible<wbr>Options</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#trackevent" class="tsd-kind-icon">Track<wbr>Event</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#trackpageview" class="tsd-kind-icon">Track<wbr>Pageview</a>
 					</li>
 					<li class=" tsd-kind-function">
 						<a href="globals.html#plausible" class="tsd-kind-icon">Plausible</a>
