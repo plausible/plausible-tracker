@@ -49,23 +49,20 @@ const plausible = Plausible({
 })
 ```
 
-`Plausible()` accepts some optional options that you may want to provide:
+`Plausible()` accepts some [options](https://maronato.github.io/plausible-tracker/globals.html#plausibleinitoptions) that you may want to provide:
 
-| Option         | Type               | Description                                                       | Default                  |
-| -------------- | ------------------ | ----------------------------------------------------------------- | ------------------------ |
-| domain         | `string`           | Your site's domain, as declared by you in Plausible's settings    | `location.hostname`      |
-| hashMode       | `bool`             | Enables tracking based on URL hash changes.                       | `false`                  |
-| trackLocalhost | `bool`             | Enables tracking on *localhost*.                                  | `false`                  |
-| url            | `string`           | Current page's URL.                                               | `location.href`          |
-| referrer       | `string` or `null` | Referrer's address                                                | `document.referrer`      |
-| deviceWidth    | `number`           | User's device width for device tracking.                          | `window.innerWidth`      |
-| apiHost        | `string`           | Plausible's API host to use. Change this if you are self-hosting. | `'https://plausible.io'` |
+| Option         | Type     | Description                                                       | Default                  |
+| -------------- | -------- | ----------------------------------------------------------------- | ------------------------ |
+| domain         | `string` | Your site's domain, as declared by you in Plausible's settings    | `location.hostname`      |
+| hashMode       | `bool`   | Enables tracking based on URL hash changes.                       | `false`                  |
+| trackLocalhost | `bool`   | Enables tracking on *localhost*.                                  | `false`                  |
+| apiHost        | `string` | Plausible's API host to use. Change this if you are self-hosting. | `'https://plausible.io'` |
 
 The object returned from `Plausible()` contains the functions that you'll use to track your events. These functions are:
 
-- `trackPageview()`: Tracks a single page view.
-- `trackEvent()`: Tracks custom events and goals
-- `enableAutoPageviews()`: Enables automatic page view tracking for SPAs
+- [`trackPageview()`](https://maronato.github.io/plausible-tracker/globals.html#trackpageview): Tracks a single page view.
+- [`trackEvent()`](https://maronato.github.io/plausible-tracker/globals.html#trackevent): Tracks custom events and goals
+- [`enableAutoPageviews()`](https://maronato.github.io/plausible-tracker/globals.html#enableautopageviews): Enables automatic page view tracking for SPAs
 
 For the complete documentation on these functions and their parameters, check out the [reference documentation](https://maronato.github.io/plausible-tracker/).
 
@@ -82,21 +79,33 @@ const { trackPageview } = Plausible()
 trackPageview()
 ```
 
-You may also override the values you provided when initializing the tracker by passing a similar object as the first parameter:
+You may also override the values you provided when initializing the tracker by passing a [similar object](https://maronato.github.io/plausible-tracker/globals.html#plausibleinitoptions) as the first parameter.
+
+This object takes the same options as the initialization one, plus the following:
+
+| Option      | Type               | Description                              | Default             |
+| ----------- | ------------------ | ---------------------------------------- | ------------------- |
+| url         | `string`           | Current page's URL.                      | `location.href`     |
+| referrer    | `string` or `null` | Referrer's address                       | `document.referrer` |
+| deviceWidth | `number`           | User's device width for device tracking. | `window.innerWidth` |
+
 
 ```ts
 import Plausible from 'plausible-tracker'
 
 const { trackPageview } = Plausible({
-  // Provide a default referrer
-  referrer: "facebook.com",
+  // Track localhost by default
+  trackLocalhost: true,
 })
 
-// And override it on this call
-trackPageview({ referrer: "google.com" })
+// Override it on this call and also set a custom url
+trackPageview({
+  trackLocalhost: false,
+  url: "https://my-app.com/my-url"
+})
 ```
 
-The second parameter is an object with some options similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
+The second parameter is an object with [some options](https://maronato.github.io/plausible-tracker/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
 
 The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
 
@@ -173,13 +182,13 @@ As with [`trackPageview`](#tracking-page-views), you may also provide override v
 import Plausible from 'plausible-tracker'
 
 const { trackEvent } = Plausible({
-  referrer: 'facebook.com',
+  trackLocalhost: false,
 })
 
 // Tracks the 'signup' goal with a different referrer and a callback
 trackEvent(
   'signup',
-  { referrer: 'google.com' },
+  { trackLocalhost: true },
   { callback: () => console.log('done') }
 );
 ```

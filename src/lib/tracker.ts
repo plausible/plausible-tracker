@@ -1,9 +1,9 @@
 import { EventOptions, sendEvent } from './request';
 
 /**
- * Options used when tracking Plausible events.
+ * Options used when initializing the tracker.
  */
-export type PlausibleOptions = {
+export type PlausibleInitOptions = {
   /**
    * If true, pageviews will be tracked when the URL hash changes.
    * Enable this if you are using a frontend that uses hash-based routing.
@@ -14,15 +14,26 @@ export type PlausibleOptions = {
    */
   readonly trackLocalhost?: boolean;
   /**
-   * The URL to bind the event to.
-   * Defaults to `location.href`.
-   */
-  readonly url?: Location['href'];
-  /**
    * The domain to bind the event to.
    * Defaults to `location.hostname`
    */
   readonly domain?: Location['hostname'];
+  /**
+   * The API host where the events will be sent.
+   * Defaults to `'https://plausible.io'`
+   */
+  readonly apiHost?: string;
+};
+
+/**
+ * Options used when tracking Plausible events.
+ */
+export type PlausibleOptions = PlausibleInitOptions & {
+  /**
+   * The URL to bind the event to.
+   * Defaults to `location.href`.
+   */
+  readonly url?: Location['href'];
   /**
    * The referrer to bind the event to.
    * Defaults to `document.referrer`
@@ -33,11 +44,6 @@ export type PlausibleOptions = {
    * Defaults to `window.innerWidth`
    */
   readonly deviceWidth?: Window['innerWidth'];
-  /**
-   * The API host where the events will be sent.
-   * Defaults to `'https://plausible.io'`
-   */
-  readonly apiHost?: string;
 };
 
 /**
@@ -158,7 +164,7 @@ type EnableAutoPageviews = () => Cleanup;
  * @param defaults - Default event parameters that will be applied to all requests.
  */
 export default function Plausible(
-  defaults?: PlausibleOptions
+  defaults?: PlausibleInitOptions
 ): {
   readonly trackEvent: TrackEvent;
   readonly trackPageview: TrackPageview;
@@ -175,18 +181,11 @@ export default function Plausible(
     ...defaults,
   });
 
-  const trackEvent: TrackEvent = (
-    eventName: string,
-    eventData?: PlausibleOptions,
-    options?: EventOptions
-  ) => {
+  const trackEvent: TrackEvent = (eventName, eventData, options) => {
     sendEvent(eventName, { ...getConfig(), ...eventData }, options);
   };
 
-  const trackPageview: TrackPageview = (
-    eventData?: PlausibleOptions,
-    options?: EventOptions
-  ) => {
+  const trackPageview: TrackPageview = (eventData, options) => {
     trackEvent('pageview', eventData, options);
   };
 
