@@ -64,7 +64,7 @@ export type PlausibleOptions = PlausibleInitOptions & PlausibleEventData;
  *
  * // Tracks the 'signup' goal
  * trackEvent('signup')
- * 
+ *
  * // Tracks the 'Download' goal passing a 'method' property.
  * trackEvent('Download', { props: { method: 'HTTP' } })
  * ```

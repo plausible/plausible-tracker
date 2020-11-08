@@ -133,7 +133,7 @@ describe('sendEvent', () => {
       r: defaultData.referrer,
       w: defaultData.deviceWidth,
       h: 0,
-      p: JSON.stringify(props)
+      p: JSON.stringify(props),
     };
 
     expect(xhrMockClass.send).toHaveBeenCalledWith(JSON.stringify(payload));

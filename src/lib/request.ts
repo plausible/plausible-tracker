@@ -22,7 +22,7 @@ export type EventOptions = {
   /**
    * Properties to be bound to the event.
    */
-  readonly props?: { readonly [propName: string]: string }
+  readonly props?: { readonly [propName: string]: string };
 };
 
 /**
@@ -55,7 +55,7 @@ export function sendEvent(
     r: data.referrer,
     w: data.deviceWidth,
     h: data.hashMode ? 1 : 0,
-    p: options && options.props ? JSON.stringify(options.props) : undefined
+    p: options && options.props ? JSON.stringify(options.props) : undefined,
   };
 
   const req = new XMLHttpRequest();
