@@ -73,7 +73,7 @@ describe('tracker', () => {
       const { trackEvent } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
       const config: PlausibleOptions = getCustomData();
-      trackEvent('myEvent', config);
+      trackEvent('myEvent', undefined, config);
       expect(requestSpy).toHaveBeenCalled();
       expect(requestSpy).toHaveBeenCalledWith('myEvent', config, undefined);
     });
@@ -81,7 +81,7 @@ describe('tracker', () => {
       const { trackEvent } = Plausible();
       expect(requestSpy).not.toHaveBeenCalled();
       const options: requestModule.EventOptions = getEventOptions();
-      trackEvent('myEvent', {}, options);
+      trackEvent('myEvent', options);
       expect(requestSpy).toHaveBeenCalled();
       expect(requestSpy).toHaveBeenCalledWith(
         'myEvent',

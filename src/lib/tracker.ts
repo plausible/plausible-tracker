@@ -66,17 +66,17 @@ export type PlausibleOptions = PlausibleInitOptions & PlausibleEventData;
  * trackEvent('signup')
  * 
  * // Tracks the 'Download' goal passing a 'method' property.
- * trackEvent('Download', {}, { props: { method: 'HTTP' } })
+ * trackEvent('Download', { props: { method: 'HTTP' } })
  * ```
  *
  * @param eventName - Name of the event to track
- * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
  * @param options - Event options.
+ * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
  */
 type TrackEvent = (
   eventName: string,
-  eventData?: PlausibleOptions,
-  options?: EventOptions
+  options?: EventOptions,
+  eventData?: PlausibleOptions
 ) => void;
 
 /**
@@ -189,12 +189,12 @@ export default function Plausible(
     ...defaults,
   });
 
-  const trackEvent: TrackEvent = (eventName, eventData, options) => {
+  const trackEvent: TrackEvent = (eventName, options, eventData) => {
     sendEvent(eventName, { ...getConfig(), ...eventData }, options);
   };
 
   const trackPageview: TrackPageview = (eventData, options) => {
-    trackEvent('pageview', eventData, options);
+    trackEvent('pageview', options, eventData);
   };
 
   const enableAutoPageviews: EnableAutoPageviews = () => {

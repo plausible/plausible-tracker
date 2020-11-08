@@ -175,13 +175,13 @@ const { trackEvent } = Plausible()
 trackEvent('signup')
 ```
 
-Custom props can be provided using the third parameter:
+Custom props can be provided using the second parameter:
 ```ts
 // Tracks the 'Download' goal and provides a 'method' property.
-trackEvent('signup', {}, { props: { method: 'HTTP' } })
+trackEvent('signup', { props: { method: 'HTTP' } })
 ```
 
-As with [`trackPageview`](#tracking-page-views), you may also provide override values and a callback as the second and third parameters respectively:
+As with [`trackPageview`](#tracking-page-views), you may also provide override values but now through the third parameter:
 
 ```ts
 import Plausible from 'plausible-tracker'
@@ -190,16 +190,16 @@ const { trackEvent } = Plausible({
   trackLocalhost: false,
 })
 
-// Tracks the 'signup' goal with a different referrer, a callback and props
+// Tracks the 'signup' goal with a callback, props and a different referrer.
 trackEvent(
   'signup',
-  { trackLocalhost: true },
   {
     callback: () => console.log('done'),
     props: {
       variation: 'button A'
     }
-  }
+  },
+  { trackLocalhost: true }
 );
 ```
 
