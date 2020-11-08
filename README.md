@@ -2,10 +2,11 @@
 
 [![NPM](https://flat.badgen.net/npm/v/plausible-tracker)](https://www.npmjs.com/package/plausible-tracker)  [![Bundle](https://flat.badgen.net/bundlephobia/minzip/plausible-tracker)](https://bundlephobia.com/result?p=plausible-tracker@latest)
 
-[![Build Status](https://travis-ci.com/Maronato/plausible-tracker.svg?branch=master)](https://travis-ci.com/Maronato/plausible-tracker) [![codecov](https://codecov.io/gh/Maronato/plausible-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/Maronato/plausible-tracker)
+[![Build Status](https://travis-ci.com/plausible/plausible-tracker.svg?branch=master)](https://travis-ci.com/plausible/plausible-tracker) [![codecov](https://codecov.io/gh/plausible/plausible-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/plausible/plausible-tracker) [![Netlify Status](https://api.netlify.com/api/v1/badges/d29c0d49-6ba4-412b-af90-d21865eb40f2/deploy-status)](https://app.netlify.com/sites/plausible-tracker/deploys)
 
 
-[![dependencies Status](https://david-dm.org/maronato/plausible-tracker/status.svg)](https://david-dm.org/maronato/plausible-tracker) [![devDependencies Status](https://david-dm.org/maronato/plausible-tracker/dev-status.svg)](https://david-dm.org/maronato/plausible-tracker?type=dev)
+[![dependencies Status](https://david-dm.org/plausible/plausible-tracker/status.svg)](https://david-dm.org/maronato/plausible-tracker) [![devDependencies Status](https://david-dm.org/plausible/plausible-tracker/dev-status.svg)](https://david-dm.org/maronato/plausible-tracker?type=dev)
+
 
 Frontend library to interact with [Plausible Analytics](https://plausible.io/).
 
@@ -49,7 +50,7 @@ const plausible = Plausible({
 })
 ```
 
-`Plausible()` accepts some options that you may want to provide:
+`Plausible()` accepts some [options](https://plausible-tracker.netlify.app/globals.html#plausibleinitoptions) that you may want to provide:
 
 | Option         | Type     | Description                                                       | Default                  |
 | -------------- | -------- | ----------------------------------------------------------------- | ------------------------ |
@@ -60,11 +61,11 @@ const plausible = Plausible({
 
 The object returned from `Plausible()` contains the functions that you'll use to track your events. These functions are:
 
-- `trackPageview()`: Tracks a single page view.
-- `trackEvent()`: Tracks custom events and goals
-- `enableAutoPageviews()`: Enables automatic page view tracking for SPAs
+- [`trackPageview()`](https://plausible-tracker.netlify.app/globals.html#trackpageview): Tracks a single page view.
+- [`trackEvent()`](https://plausible-tracker.netlify.app/globals.html#trackevent): Tracks custom events and goals
+- [`enableAutoPageviews()`](https://plausible-tracker.netlify.app/globals.html#enableautopageviews): Enables automatic page view tracking for SPAs
 
-For the complete documentation on these functions and their parameters, check out the [reference documentation](https://github.com/plausible/plausible-tracker).
+For the complete documentation on these functions and their parameters, check out the [reference documentation](https://plausible-tracker.netlify.app/).
 
 ### Tracking page views
 
@@ -79,7 +80,7 @@ const { trackPageview } = Plausible()
 trackPageview()
 ```
 
-You may also override the values you provided when initializing the tracker by passing a similar object as the first parameter.
+You may also override the values you provided when initializing the tracker by passing a [similar object](https://plausible-tracker.netlify.app/globals.html#plausibleoptions) as the first parameter.
 
 This object takes the same options as the initialization one, plus the following:
 
@@ -105,7 +106,7 @@ trackPageview({
 })
 ```
 
-The second parameter is an object with some options similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
+The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
 
 The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
 
@@ -194,4 +195,4 @@ trackEvent(
 ```
 
 ## Reference documentation
-For the full method and type documentation, check out the [reference documentation](https://github.com/plausible/plausible-tracker).
+For the full method and type documentation, check out the [reference documentation](https://plausible-tracker.netlify.app).
