@@ -68,9 +68,9 @@
 					<h1>Plausible Analytics Tracker</h1>
 				</a>
 				<p><a href="https://www.npmjs.com/package/plausible-tracker"><img src="https://flat.badgen.net/npm/v/plausible-tracker" alt="NPM"></a>  <a href="https://bundlephobia.com/result?p=plausible-tracker@latest"><img src="https://flat.badgen.net/bundlephobia/minzip/plausible-tracker" alt="Bundle"></a></p>
-				<p><a href="https://travis-ci.com/Maronato/plausible-tracker"><img src="https://travis-ci.com/Maronato/plausible-tracker.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/Maronato/plausible-tracker"><img src="https://codecov.io/gh/Maronato/plausible-tracker/branch/master/graph/badge.svg" alt="codecov"></a></p>
-				<p><a href="https://david-dm.org/maronato/plausible-tracker"><img src="https://david-dm.org/maronato/plausible-tracker/status.svg" alt="dependencies Status"></a> <a href="https://david-dm.org/maronato/plausible-tracker?type=dev"><img src="https://david-dm.org/maronato/plausible-tracker/dev-status.svg" alt="devDependencies Status"></a></p>
-				<p>Unofficial frontend library to interact with <a href="https://plausible.io/">Plausible Analytics</a>.</p>
+				<p><a href="https://travis-ci.com/plausible/plausible-tracker"><img src="https://travis-ci.com/plausible/plausible-tracker.svg?branch=master" alt="Build Status"></a> <a href="https://codecov.io/gh/plausible/plausible-tracker"><img src="https://codecov.io/gh/plausible/plausible-tracker/branch/master/graph/badge.svg" alt="codecov"></a> <a href="https://app.netlify.com/sites/plausible-tracker/deploys"><img src="https://api.netlify.com/api/v1/badges/d29c0d49-6ba4-412b-af90-d21865eb40f2/deploy-status" alt="Netlify Status"></a></p>
+				<p><a href="https://david-dm.org/maronato/plausible-tracker"><img src="https://david-dm.org/plausible/plausible-tracker/status.svg" alt="dependencies Status"></a> <a href="https://david-dm.org/maronato/plausible-tracker?type=dev"><img src="https://david-dm.org/plausible/plausible-tracker/dev-status.svg" alt="devDependencies Status"></a></p>
+				<p>Frontend library to interact with <a href="https://plausible.io/">Plausible Analytics</a>.</p>
 				<ul>
 					<li><a href="#plausible-analytics-tracker">Plausible Analytics Tracker</a><ul>
 							<li><a href="#features">Features</a></li>
@@ -115,7 +115,7 @@ yarn add plausible-tracker</code></pre>
 <span class="hljs-keyword">const</span> plausible = Plausible({
   domain: <span class="hljs-string">&#x27;my-app.com&#x27;</span>
 })</code></pre>
-				<p><code>Plausible()</code> accepts some <a href="https://maronato.github.io/plausible-tracker/globals.html#plausibleinitoptions">options</a> that you may want to provide:</p>
+				<p><code>Plausible()</code> accepts some <a href="https://plausible-tracker.netlify.app/globals.html#plausibleinitoptions">options</a> that you may want to provide:</p>
 				<table>
 					<thead>
 						<tr>
@@ -152,11 +152,11 @@ yarn add plausible-tracker</code></pre>
 				</tbody></table>
 				<p>The object returned from <code>Plausible()</code> contains the functions that you&#39;ll use to track your events. These functions are:</p>
 				<ul>
-					<li><a href="https://maronato.github.io/plausible-tracker/globals.html#trackpageview"><code>trackPageview()</code></a>: Tracks a single page view.</li>
-					<li><a href="https://maronato.github.io/plausible-tracker/globals.html#trackevent"><code>trackEvent()</code></a>: Tracks custom events and goals</li>
-					<li><a href="https://maronato.github.io/plausible-tracker/globals.html#enableautopageviews"><code>enableAutoPageviews()</code></a>: Enables automatic page view tracking for SPAs</li>
+					<li><a href="https://plausible-tracker.netlify.app/globals.html#trackpageview"><code>trackPageview()</code></a>: Tracks a single page view.</li>
+					<li><a href="https://plausible-tracker.netlify.app/globals.html#trackevent"><code>trackEvent()</code></a>: Tracks custom events and goals</li>
+					<li><a href="https://plausible-tracker.netlify.app/globals.html#enableautopageviews"><code>enableAutoPageviews()</code></a>: Enables automatic page view tracking for SPAs</li>
 				</ul>
-				<p>For the complete documentation on these functions and their parameters, check out the <a href="https://maronato.github.io/plausible-tracker/">reference documentation</a>.</p>
+				<p>For the complete documentation on these functions and their parameters, check out the <a href="https://plausible-tracker.netlify.app/">reference documentation</a>.</p>
 				<a href="#tracking-page-views" id="tracking-page-views" style="color: inherit; text-decoration: none;">
 					<h3>Tracking page views</h3>
 				</a>
@@ -167,7 +167,7 @@ yarn add plausible-tracker</code></pre>
 
 <span class="hljs-comment">// Track a page view</span>
 trackPageview()</code></pre>
-				<p>You may also override the values you provided when initializing the tracker by passing a <a href="https://maronato.github.io/plausible-tracker/globals.html#plausibleoptions">similar object</a> as the first parameter.</p>
+				<p>You may also override the values you provided when initializing the tracker by passing a <a href="https://plausible-tracker.netlify.app/globals.html#plausibleoptions">similar object</a> as the first parameter.</p>
 				<p>This object takes the same options as the initialization one, plus the following:</p>
 				<table>
 					<thead>
@@ -209,8 +209,7 @@ trackPageview({
   trackLocalhost: <span class="hljs-literal">false</span>,
   url: <span class="hljs-string">&quot;https://my-app.com/my-url&quot;</span>
 })</code></pre>
-				<p>The second parameter is an object with <a href="https://maronato.github.io/plausible-tracker/globals.html#eventoptions">some options</a> similar to the ones provided by the <a href="https://docs.plausible.io/custom-event-goals">official Plausible script</a>. </p>
-				<p>The only supported option at the moment is <code>callback</code> – a function that is called once the event is logged successfully.</p>
+				<p>The second parameter is an object with <a href="https://plausible-tracker.netlify.app/globals.html#eventoptions">some options</a> similar to the ones provided by the <a href="https://docs.plausible.io/custom-event-goals">official Plausible script</a>. </p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
 <span class="hljs-keyword">const</span> { trackPageview } = Plausible()
@@ -261,23 +260,31 @@ cleanup()</code></pre>
 
 <span class="hljs-comment">// Tracks the &#x27;signup&#x27; goal</span>
 trackEvent(<span class="hljs-string">&#x27;signup&#x27;</span>)</code></pre>
-				<p>As with <a href="#tracking-page-views"><code>trackPageview</code></a>, you may also provide override values and a callback as the second and third parameters respectively:</p>
+				<p>Custom props can be provided using the second parameter:</p>
+				<pre><code class="language-ts"><span class="hljs-comment">// Tracks the &#x27;Download&#x27; goal and provides a &#x27;method&#x27; property.</span>
+trackEvent(<span class="hljs-string">&#x27;signup&#x27;</span>, { props: { method: <span class="hljs-string">&#x27;HTTP&#x27;</span> } })</code></pre>
+				<p>As with <a href="#tracking-page-views"><code>trackPageview</code></a>, you may also provide override values but now through the third parameter:</p>
 				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
 
 <span class="hljs-keyword">const</span> { trackEvent } = Plausible({
   trackLocalhost: <span class="hljs-literal">false</span>,
 })
 
-<span class="hljs-comment">// Tracks the &#x27;signup&#x27; goal with a different referrer and a callback</span>
+<span class="hljs-comment">// Tracks the &#x27;signup&#x27; goal with a callback, props and a different referrer.</span>
 trackEvent(
   <span class="hljs-string">&#x27;signup&#x27;</span>,
-  { trackLocalhost: <span class="hljs-literal">true</span> },
-  { callback: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;done&#x27;</span>) }
+  {
+    callback: <span class="hljs-function">() =&gt;</span> <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;done&#x27;</span>),
+    props: {
+      variation: <span class="hljs-string">&#x27;button A&#x27;</span>
+    }
+  },
+  { trackLocalhost: <span class="hljs-literal">true</span> }
 );</code></pre>
 				<a href="#reference-documentation" id="reference-documentation" style="color: inherit; text-decoration: none;">
 					<h2>Reference documentation</h2>
 				</a>
-				<p>For the full method and type documentation, check out the <a href="https://maronato.github.io/plausible-tracker">reference documentation</a>.</p>
+				<p>For the full method and type documentation, check out the <a href="https://plausible-tracker.netlify.app">reference documentation</a>.</p>
 			</div>
 		</div>
 		<div class="col-4 col-menu menu-sticky-wrap menu-highlight">
