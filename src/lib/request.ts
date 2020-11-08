@@ -10,10 +10,19 @@ type EventPayload = {
   readonly r: Document['referrer'] | null;
   readonly w: Window['innerWidth'];
   readonly h: 1 | 0;
+  readonly p?: string;
 };
 
+// eslint-disable-next-line functional/no-mixed-type
 export type EventOptions = {
+  /**
+   * Callback called when the event is successfully sent.
+   */
   readonly callback?: () => void;
+  /**
+   * Properties to be bound to the event.
+   */
+  readonly props?: { readonly [propName: string]: string }
 };
 
 /**
@@ -46,6 +55,7 @@ export function sendEvent(
     r: data.referrer,
     w: data.deviceWidth,
     h: data.hashMode ? 1 : 0,
+    p: options && options.props ? JSON.stringify(options.props) : undefined
   };
 
   const req = new XMLHttpRequest();

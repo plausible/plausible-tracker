@@ -108,8 +108,6 @@ trackPageview({
 
 The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
 
-The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
-
 ```ts
 import Plausible from 'plausible-tracker'
 
@@ -177,6 +175,12 @@ const { trackEvent } = Plausible()
 trackEvent('signup')
 ```
 
+Custom props can be provided using the third parameter:
+```ts
+// Tracks the 'Download' goal and provides a 'method' property.
+trackEvent('signup', {}, { props: { method: 'HTTP' } })
+```
+
 As with [`trackPageview`](#tracking-page-views), you may also provide override values and a callback as the second and third parameters respectively:
 
 ```ts
@@ -186,11 +190,16 @@ const { trackEvent } = Plausible({
   trackLocalhost: false,
 })
 
-// Tracks the 'signup' goal with a different referrer and a callback
+// Tracks the 'signup' goal with a different referrer, a callback and props
 trackEvent(
   'signup',
   { trackLocalhost: true },
-  { callback: () => console.log('done') }
+  {
+    callback: () => console.log('done'),
+    props: {
+      variation: 'button A'
+    }
+  }
 );
 ```
 

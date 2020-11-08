@@ -64,11 +64,14 @@ export type PlausibleOptions = PlausibleInitOptions & PlausibleEventData;
  *
  * // Tracks the 'signup' goal
  * trackEvent('signup')
+ * 
+ * // Tracks the 'Download' goal passing a 'method' property.
+ * trackEvent('Download', {}, { props: { method: 'HTTP' } })
  * ```
  *
  * @param eventName - Name of the event to track
  * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
- * @param options - Event options. The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
+ * @param options - Event options.
  */
 type TrackEvent = (
   eventName: string,
@@ -90,7 +93,7 @@ type TrackEvent = (
  * ```
  *
  * @param eventData - Optional event data to send. Defaults to the current page's data merged with the default options provided earlier.
- * @param options - Event options. The only supported option at the moment is `callback` – a function that is called once the event is logged successfully.
+ * @param options - Event options.
  */
 type TrackPageview = (
   eventData?: PlausibleOptions,

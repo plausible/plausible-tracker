@@ -121,4 +121,21 @@ describe('sendEvent', () => {
     xhrMockClass.ready(4);
     expect(callback).toHaveBeenCalled();
   });
+  test('sends props', () => {
+    expect(xmr).not.toHaveBeenCalled();
+    const props = { variation1: 'A', variation2: 'B' };
+    sendEvent('myEvent', defaultData, { props });
+
+    const payload = {
+      n: 'myEvent',
+      u: defaultData.url,
+      d: defaultData.domain,
+      r: defaultData.referrer,
+      w: defaultData.deviceWidth,
+      h: 0,
+      p: JSON.stringify(props)
+    };
+
+    expect(xhrMockClass.send).toHaveBeenCalledWith(JSON.stringify(payload));
+  });
 });

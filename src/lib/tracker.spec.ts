@@ -32,6 +32,10 @@ describe('tracker', () => {
 
   const getEventOptions: () => Required<requestModule.EventOptions> = () => ({
     callback: jest.fn(),
+    props: {
+      variation1: 'A',
+      variation2: 'B'
+    }
   });
 
   test('inits with default config', () => {
