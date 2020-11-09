@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.3.1](https://github.com/Maronato/plausible-tracker/compare/v0.3.0...v0.3.1) (2020-11-09)
+
+
+### Features
+
+* **tracker:** add automatic outbound link tracking ([695152c](https://github.com/Maronato/plausible-tracker/commit/695152c70fcd3a5a2ed5f719ed5e4b104a4b37ec))
+
 ## [0.3.0](https://github.com/Maronato/plausible-tracker/compare/v0.2.2...v0.3.0) (2020-11-08)
 
 
