@@ -82,6 +82,10 @@
 										</ul>
 									</li>
 									<li><a href="#tracking-custom-events-and-goals">Tracking custom events and goals</a></li>
+									<li><a href="#outbound-link-click-tracking">Outbound link click tracking</a><ul>
+											<li><a href="#cleaning-up-the-event-listeners-1">Cleaning up the event listeners</a></li>
+										</ul>
+									</li>
 								</ul>
 							</li>
 							<li><a href="#reference-documentation">Reference documentation</a></li>
@@ -281,6 +285,32 @@ trackEvent(
   },
   { trackLocalhost: <span class="hljs-literal">true</span> }
 );</code></pre>
+				<a href="#outbound-link-click-tracking" id="outbound-link-click-tracking" style="color: inherit; text-decoration: none;">
+					<h3>Outbound link click tracking</h3>
+				</a>
+				<p>You can also track all clicks to outbound links using <code>enableAutoOutboundTracking</code>.</p>
+				<p>For details on how to setup the tracking, visit the <a href="https://docs.plausible.io/outbound-link-click-tracking">docs</a>.</p>
+				<p>This function adds a <code>click</code> event listener to all <code>a</code> tags on the page and reports them to Plausible. It also creates a <a href="https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver">MutationObserver</a> that efficiently tracks node mutations, so dynamically-added links are also tracked.</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
+
+<span class="hljs-keyword">const</span> { enableAutoOutboundTracking } = Plausible()
+
+<span class="hljs-comment">// Track all existing and future outbound links</span>
+enableAutoOutboundTracking()</code></pre>
+				<a href="#cleaning-up-the-event-listeners-1" id="cleaning-up-the-event-listeners-1" style="color: inherit; text-decoration: none;">
+					<h4>Cleaning up the event listeners</h4>
+				</a>
+				<p>When you call <code>enableAutoOutboundTracking()</code>, it adds some event listeners and initializes a <code>MutationObserver</code>. To remove them, call the cleanup function returned by <code>enableAutoOutboundTracking()</code>:</p>
+				<pre><code class="language-ts"><span class="hljs-keyword">import</span> Plausible <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;plausible-tracker&#x27;</span>
+
+<span class="hljs-keyword">const</span> { enableAutoOutboundTracking } = Plausible()
+
+<span class="hljs-keyword">const</span> cleanup = enableAutoOutboundTracking()
+
+<span class="hljs-comment">// ...</span>
+
+<span class="hljs-comment">// Remove event listeners and disconnect the MutationObserver</span>
+cleanup()</code></pre>
 				<a href="#reference-documentation" id="reference-documentation" style="color: inherit; text-decoration: none;">
 					<h2>Reference documentation</h2>
 				</a>
@@ -299,6 +329,9 @@ trackEvent(
 				<ul class="before-current">
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#cleanup" class="tsd-kind-icon">Cleanup</a>
+					</li>
+					<li class=" tsd-kind-type-alias">
+						<a href="globals.html#enableautooutboundtracking" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Outbound<wbr>Tracking</a>
 					</li>
 					<li class=" tsd-kind-type-alias">
 						<a href="globals.html#enableautopageviews" class="tsd-kind-icon">Enable<wbr>Auto<wbr>Pageviews</a>
