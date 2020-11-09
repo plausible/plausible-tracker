@@ -184,4 +184,156 @@ describe('tracker', () => {
       cleanup();
     });
   });
+  describe('enableAutoOutboundTracking', () => {
+    const createAnchors = (amount: number, start = 0) => {
+      return [...Array(amount).keys()].map((i) => {
+        const el = document.createElement('a');
+        el.setAttribute('href', `https://link-${i + start}.com`);
+        return el;
+      });
+    };
+    const mountAnchors = (anchors: readonly HTMLAnchorElement[]) => {
+      const div = document.createElement('div');
+      anchors.forEach((a) => div.appendChild(a));
+      document.body.append(div);
+    };
+
+    const clickLink = (anchor: HTMLAnchorElement) => {
+      anchor.click();
+    };
+
+    afterEach(() => {
+      // Reset body
+      document.body.innerHTML = '';
+    });
+    test('tracks existing anchors', () => {
+      const anchors = createAnchors(10);
+      mountAnchors(anchors);
+      const { enableAutoOutboundTracking } = Plausible(document);
+      const cleanup = enableAutoOutboundTracking();
+      expect(requestSpy).not.toHaveBeenCalled();
+
+      // Click anchors
+      anchors.forEach(clickLink);
+      expect(requestSpy).toHaveBeenCalledTimes(10);
+      anchors.forEach((a) => {
+        expect(requestSpy).toHaveBeenCalledWith(
+          'Outbound Link: Click',
+          expect.anything(),
+          expect.objectContaining({
+            props: { url: a.href },
+          })
+        );
+      });
+      cleanup();
+    });
+    test('do not track host links', () => {
+      const anchors = createAnchors(1);
+      mountAnchors(anchors);
+      const anchor = anchors[0];
+      anchor.setAttribute('href', `https://${location.host}`);
+      const { enableAutoOutboundTracking } = Plausible(document);
+      const cleanup = enableAutoOutboundTracking();
+      expect(requestSpy).not.toHaveBeenCalled();
+
+      // Click anchors
+      anchors.forEach(clickLink);
+      expect(requestSpy).not.toHaveBeenCalled();
+      cleanup();
+    });
+    test('tracks href change', async () => {
+      const anchors = createAnchors(1);
+      mountAnchors(anchors);
+      const { enableAutoOutboundTracking } = Plausible(document);
+      const cleanup = enableAutoOutboundTracking();
+
+      const newHref = 'https://other.com/';
+
+      // Change href
+      const anchor = document.querySelector('a');
+      expect(anchor).toBeTruthy();
+      if (anchor) {
+        anchor.removeAttribute('href');
+        anchor.setAttribute('href', newHref);
+      }
+
+      expect(requestSpy).not.toHaveBeenCalled();
+
+      // Wait for observer to run
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 100)
+      );
+
+      // Click anchors
+      anchors.forEach(clickLink);
+      expect(requestSpy).toHaveBeenCalledTimes(1);
+      expect(requestSpy).toBeCalledWith(
+        'Outbound Link: Click',
+        expect.anything(),
+        expect.objectContaining({
+          props: { url: newHref },
+        })
+      );
+      cleanup();
+    });
+    test('tracks node addition', async () => {
+      const oldAnchors = createAnchors(5);
+      mountAnchors(oldAnchors);
+      const { enableAutoOutboundTracking } = Plausible(document);
+      const cleanup = enableAutoOutboundTracking();
+
+      const newAnchors = createAnchors(5, 5);
+      mountAnchors(newAnchors);
+
+      expect(requestSpy).not.toHaveBeenCalled();
+
+      const anchors = [...oldAnchors, ...newAnchors];
+
+      // Wait for observer to run
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 100)
+      );
+
+      // Click anchors
+      anchors.forEach((a) => a.click());
+      expect(requestSpy).toHaveBeenCalledTimes(10);
+      anchors.forEach((a) => {
+        expect(requestSpy).toHaveBeenCalledWith(
+          'Outbound Link: Click',
+          expect.anything(),
+          expect.objectContaining({
+            props: { url: a.href },
+          })
+        );
+      });
+      cleanup();
+    });
+    test('tracks node removal', async () => {
+      const anchors = createAnchors(5);
+      mountAnchors(anchors);
+      const { enableAutoOutboundTracking } = Plausible(document);
+      const cleanup = enableAutoOutboundTracking();
+
+      expect(requestSpy).not.toHaveBeenCalled();
+
+      // Remove nodes
+      document.querySelector('div')?.remove();
+
+      // Wait for observer to run
+      await new Promise((resolve) =>
+        setTimeout(() => {
+          resolve();
+        }, 100)
+      );
+
+      // Click anchors
+      anchors.forEach(clickLink);
+      expect(requestSpy).not.toHaveBeenCalled();
+      cleanup();
+    });
+  });
 });

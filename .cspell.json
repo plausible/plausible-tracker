@@ -28,7 +28,8 @@
     "GIFs",
     "popstate",
     "hashchange",
-    "signup"
+    "signup",
+    "automagically"
   ],
   "flagWords": [],
   "ignorePaths": [

@@ -135,6 +135,42 @@ type Cleanup = () => void;
 type EnableAutoPageviews = () => Cleanup;
 
 /**
+ * Tracks all outbound link clicks automatically
+ *
+ * Call this if you don't want to manually manage these links.
+ *
+ * It works using a **[MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver)** to automagically detect link nodes throughout your application and bind `click` events to them.
+ *
+ * Optionally takes the same parameters as [`MutationObserver.observe`](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver/observe).
+ *
+ * ### Example
+ * ```js
+ * import Plausible from 'plausible-tracker'
+ *
+ * const { enableAutoOutboundTracking } = Plausible()
+ *
+ * // This tracks all the existing and future outbound links on your page.
+ * enableAutoOutboundTracking()
+ * ```
+ *
+ * The returned value is a callback that removes the added event listeners and disconnects the observer
+ * ```js
+ * import Plausible from 'plausible-tracker'
+ *
+ * const { enableAutoOutboundTracking } = Plausible()
+ *
+ * const cleanup = enableAutoOutboundTracking()
+ *
+ * // Remove event listeners and disconnect the observer
+ * cleanup()
+ * ```
+ */
+type EnableAutoOutboundTracking = (
+  targetNode?: Node & ParentNode,
+  observerInit?: MutationObserverInit
+) => Cleanup;
+
+/**
  * Initializes the tracker with your default values.
  *
  * ### Example (es module)
@@ -177,6 +213,7 @@ export default function Plausible(
   readonly trackEvent: TrackEvent;
   readonly trackPageview: TrackPageview;
   readonly enableAutoPageviews: EnableAutoPageviews;
+  readonly enableAutoOutboundTracking: EnableAutoOutboundTracking;
 } {
   const getConfig = (): Required<PlausibleOptions> => ({
     hashMode: false,
@@ -230,5 +267,88 @@ export default function Plausible(
     };
   };
 
-  return { trackEvent, trackPageview, enableAutoPageviews };
+  const enableAutoOutboundTracking: EnableAutoOutboundTracking = (
+    targetNode: Node & ParentNode = document,
+    observerInit: MutationObserverInit = {
+      subtree: true,
+      childList: true,
+      attributes: true,
+      attributeFilter: ['href'],
+    }
+  ) => {
+    function trackClick(this: HTMLAnchorElement, event: MouseEvent) {
+      trackEvent('Outbound Link: Click', { props: { url: this.href } });
+
+      /* istanbul ignore next */
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      if (!(process && process.env.NODE_ENV === 'test')) {
+        setTimeout(() => {
+          // eslint-disable-next-line functional/immutable-data
+          location.href = this.href;
+        }, 150);
+      }
+
+      event.preventDefault();
+    }
+
+    // eslint-disable-next-line functional/prefer-readonly-type
+    const tracked: Set<HTMLAnchorElement> = new Set();
+
+    function addNode(node: Node | ParentNode) {
+      if (node instanceof HTMLAnchorElement) {
+        if (node.host !== location.host) {
+          node.addEventListener('click', trackClick);
+          tracked.add(node);
+        }
+      } /* istanbul ignore next */ else if ('querySelectorAll' in node) {
+        node.querySelectorAll('a').forEach(addNode);
+      }
+    }
+
+    function removeNode(node: Node | ParentNode) {
+      if (node instanceof HTMLAnchorElement) {
+        node.removeEventListener('click', trackClick);
+        tracked.delete(node);
+      } /* istanbul ignore next */ else if ('querySelectorAll' in node) {
+        node.querySelectorAll('a').forEach(removeNode);
+      }
+    }
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes') {
+          // Handle changed href
+          removeNode(mutation.target);
+          addNode(mutation.target);
+        } /* istanbul ignore next */ else if (mutation.type === 'childList') {
+          // Handle added nodes
+          mutation.addedNodes.forEach(addNode);
+          // Handle removed nodes
+          mutation.removedNodes.forEach(removeNode);
+        }
+      });
+    });
+
+    // Track existing nodes
+    targetNode.querySelectorAll('a').forEach(addNode);
+
+    // Observe mutations
+    observer.observe(targetNode, observerInit);
+
+    return function cleanup() {
+      tracked.forEach((a) => {
+        a.removeEventListener('click', trackClick);
+      });
+      tracked.clear();
+      observer.disconnect();
+    };
+  };
+
+  return {
+    trackEvent,
+    trackPageview,
+    enableAutoPageviews,
+    enableAutoOutboundTracking,
+  };
 }
