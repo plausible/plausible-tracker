@@ -18,6 +18,8 @@ Frontend library to interact with [Plausible Analytics](https://plausible.io/).
     - [Automatically tracking page views](#automatically-tracking-page-views)
       - [Cleaning up the event listeners](#cleaning-up-the-event-listeners)
     - [Tracking custom events and goals](#tracking-custom-events-and-goals)
+    - [Outbound link click tracking](#outbound-link-click-tracking)
+      - [Cleaning up the event listeners](#cleaning-up-the-event-listeners-1)
   - [Reference documentation](#reference-documentation)
 
 ## Features
@@ -201,6 +203,40 @@ trackEvent(
   },
   { trackLocalhost: true }
 );
+```
+
+### Outbound link click tracking
+
+You can also track all clicks to outbound links using `enableAutoOutboundTracking`.
+
+For details on how to setup the tracking, visit the [docs](https://docs.plausible.io/outbound-link-click-tracking).
+
+This function adds a `click` event listener to all `a` tags on the page and reports them to Plausible. It also creates a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) that efficiently tracks node mutations, so dynamically-added links are also tracked.
+
+```ts
+import Plausible from 'plausible-tracker'
+
+const { enableAutoOutboundTracking } = Plausible()
+
+// Track all existing and future outbound links
+enableAutoOutboundTracking()
+```
+
+#### Cleaning up the event listeners
+
+When you call `enableAutoOutboundTracking()`, it adds some event listeners and initializes a `MutationObserver`. To remove them, call the cleanup function returned by `enableAutoOutboundTracking()`:
+
+```ts
+import Plausible from 'plausible-tracker'
+
+const { enableAutoOutboundTracking } = Plausible()
+
+const cleanup = enableAutoOutboundTracking()
+
+// ...
+
+// Remove event listeners and disconnect the MutationObserver
+cleanup()
 ```
 
 ## Reference documentation
