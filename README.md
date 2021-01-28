@@ -179,8 +179,8 @@ trackEvent('signup')
 
 Custom props can be provided using the second parameter:
 ```ts
-// Tracks the 'Download' goal and provides a 'method' property.
-trackEvent('signup', { props: { method: 'HTTP' } })
+// Tracks the 'download' goal and provides a 'method' property.
+trackEvent('download', { props: { method: 'HTTP' } })
 ```
 
 As with [`trackPageview`](#tracking-page-views), you may also provide override values but now through the third parameter:
