@@ -262,7 +262,7 @@ describe('tracker', () => {
       // Wait for observer to run
       await new Promise((resolve) =>
         setTimeout(() => {
-          resolve();
+          resolve(null);
         }, 100)
       );
 
@@ -294,7 +294,7 @@ describe('tracker', () => {
       // Wait for observer to run
       await new Promise((resolve) =>
         setTimeout(() => {
-          resolve();
+          resolve(null);
         }, 100)
       );
 
@@ -326,7 +326,7 @@ describe('tracker', () => {
       // Wait for observer to run
       await new Promise((resolve) =>
         setTimeout(() => {
-          resolve();
+          resolve(null);
         }, 100)
       );
 
