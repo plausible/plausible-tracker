@@ -22,3 +22,4 @@ jobs:
           cache: 'yarn'
       - run: yarn install
       - run: yarn test
+      - uses: codecov/codecov-action@v2
