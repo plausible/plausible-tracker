@@ -111,6 +111,18 @@ describe('sendEvent', () => {
     sendEvent('myEvent', { ...defaultData, trackLocalhost: true });
     expect(xmr).toHaveBeenCalled();
   });
+  test('does not send if "plausible_ignore" is set to "true" in localStorage', () => {
+    window.localStorage.setItem('plausible_ignore', 'true');
+    expect(xmr).not.toHaveBeenCalled();
+    sendEvent('myEvent', defaultData);
+    expect(xmr).not.toHaveBeenCalled();
+
+    window.localStorage.setItem('plausible_ignore', 'something-not-true');
+    sendEvent('myEvent', defaultData);
+    expect(xmr).toHaveBeenCalled();
+
+    window.localStorage.removeItem('plausible_ignore');
+  });
   test('calls callback', () => {
     expect(xmr).not.toHaveBeenCalled();
     const callback = jest.fn();

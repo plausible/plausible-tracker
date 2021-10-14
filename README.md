@@ -239,5 +239,11 @@ const cleanup = enableAutoOutboundTracking()
 cleanup()
 ```
 
+### Opt out and exclude yourself from the analytics
+
+Since plausible-tracker is bundled with your application code, using an ad-blocker to exclude your visits isn't an option. Fortunately Plausible has an alternative for this scenario: plausible-tracker will not send events if `localStorage.plausible_ignore` is set to `"true"`.
+
+More information about this method can be found in the [Plausible documentation](https://plausible.io/docs/excluding-localstorage).
+
 ## Reference documentation
 For the full method and type documentation, check out the [reference documentation](https://plausible-tracker.netlify.app).
