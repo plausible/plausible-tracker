@@ -282,7 +282,13 @@ export default function Plausible(
       /* istanbul ignore next */
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
-      if (!(typeof(process) !== 'undefined' && process && process.env.NODE_ENV === 'test')) {
+      if (
+        !(
+          typeof process !== 'undefined' &&
+          process &&
+          process.env.NODE_ENV === 'test'
+        )
+      ) {
         setTimeout(() => {
           // eslint-disable-next-line functional/immutable-data
           location.href = this.href;
