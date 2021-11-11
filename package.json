@@ -1,11 +1,11 @@
 {
   "name": "plausible-tracker",
   "version": "0.3.4",
-  "description": "Unofficial frontend tracker to interact with Plausible Analytics",
+  "description": "Official frontend tracker to interact with Plausible Analytics",
   "main": "build/main/index.js",
   "typings": "build/main/index.d.ts",
   "module": "build/module/index.js",
-  "repository": "https://github.com/Maronato/plausible-tracker",
+  "repository": "https://github.com/plausible/plausible-tracker",
   "license": "MIT",
   "keywords": [],
   "scripts": {
