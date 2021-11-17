@@ -287,15 +287,30 @@ export default function Plausible(
           typeof process !== 'undefined' &&
           process &&
           process.env.NODE_ENV === 'test'
-        )
+        ) &&
+        // _parent, _top, _self (same as none) need a delay for the request to go through
+        (!this.target || this.target.match(/^_(self|parent|top)$/i))
       ) {
         setTimeout(() => {
-          // eslint-disable-next-line functional/immutable-data
-          location.href = this.href;
+          switch (this.target) {
+            case '_top':
+              // eslint-disable-next-line functional/immutable-data
+              (window.top ?? window).location.href = this.href;
+              break;
+            case '_parent':
+              // eslint-disable-next-line functional/immutable-data
+              window.parent.location.href = this.href;
+              break;
+            default:
+              // eslint-disable-next-line functional/immutable-data
+              location.href = this.href;
+              break;
+          }
         }, 150);
-      }
 
-      event.preventDefault();
+        // _blank and custom targets should use the default browser behavior
+        event.preventDefault();
+      }
     }
 
     // eslint-disable-next-line functional/prefer-readonly-type
