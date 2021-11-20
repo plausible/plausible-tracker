@@ -277,6 +277,8 @@ export default function Plausible(
     }
   ) => {
     function trackClick(this: HTMLAnchorElement, event: MouseEvent) {
+      if (event.ctrlKey) return; // Don't send event on Ctrl + Click, should behave like middle-mouse-click.
+
       trackEvent('Outbound Link: Click', { props: { url: this.href } });
 
       /* istanbul ignore next */
