@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.3.4](https://github.com/Maronato/plausible-tracker/compare/v0.3.1...v0.3.2) (2021-10-27)
+### [0.3.4](https://github.com/Maronato/plausible-tracker/compare/v0.3.4...v0.3.5) (2022-01-25)
+
+### Changes
+
+* **tracker:** Include source files for source maps ([#23](https://github.com/plausible/plausible-tracker/pull/23))
+
+### [0.3.4](https://github.com/Maronato/plausible-tracker/compare/v0.3.2...v0.3.4) (2021-10-27)
 
 ### Features
 
