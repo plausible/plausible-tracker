@@ -68,6 +68,7 @@
   "files": [
     "build/main",
     "build/module",
+    "src",
     "!**/*.spec.*",
     "!**/*.json",
     "CHANGELOG.md",
