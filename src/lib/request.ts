@@ -29,9 +29,9 @@ export type EventOptions = {
 export const checkLocalStorageSupport = (g?: Window | typeof globalThis | Window & typeof globalThis): boolean => {
   try {
     if ( g ) {
-      return "localStorage" in g && g["localStorage"] !== null;
+      return "localStorage" in g && g["localStorage"] !== null && !!g["localStorage"].getItem;
     } else {
-      return "localStorage" in window && window["localStorage"] !== null;
+      return "localStorage" in window && window["localStorage"] !== null && !!window["localStorage"].getItem;
     }
   } catch (_e) {
     return false;
