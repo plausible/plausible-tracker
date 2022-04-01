@@ -25,13 +25,24 @@ export type EventOptions = {
   readonly props?: { readonly [propName: string]: string };
 };
 
-
-export const checkLocalStorageSupport = (g?: Window | typeof globalThis | Window & typeof globalThis): boolean => {
+export const checkLocalStorageSupport = (
+  g?: Window | typeof globalThis | (Window & typeof globalThis)
+): boolean => {
   try {
-    if ( g ) {
-      return "localStorage" in g && g["localStorage"] !== null && !!g["localStorage"].getItem;
+    if (g) {
+      const supported =
+        'localStorage' in g &&
+        g['localStorage'] !== null &&
+        g['localStorage'].setItem('plausible_test', `1`) === undefined;
+      g['localStorage'].removeItem('plausible_test');
+      return supported;
     } else {
-      return "localStorage" in window && window["localStorage"] !== null && !!window["localStorage"].getItem;
+      const supported =
+        'localStorage' in window &&
+        window['localStorage'] !== null &&
+        window['localStorage'].setItem('plausible_test', `1`) === undefined;
+      window['localStorage'].removeItem('plausible_test');
+      return supported;
     }
   } catch (_e) {
     return false;
@@ -61,9 +72,10 @@ export function sendEvent(
     );
   }
 
-  
   const hasLocalStorageSupport = checkLocalStorageSupport();
-  const shouldIgnoreCurrentBrowser = hasLocalStorageSupport && localStorage.getItem('plausible_ignore') === 'true';
+  const shouldIgnoreCurrentBrowser =
+    hasLocalStorageSupport &&
+    localStorage.getItem('plausible_ignore') === 'true';
 
   if (shouldIgnoreCurrentBrowser) {
     return console.warn(
