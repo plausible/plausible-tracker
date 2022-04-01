@@ -1,6 +1,6 @@
 /* eslint-disable functional/no-let */
 /* eslint-disable functional/immutable-data */
-import { sendEvent } from './request';
+import { checkLocalStorageSupport, sendEvent } from './request';
 import { PlausibleOptions } from './tracker';
 
 const getXhrMockClass = () => ({
@@ -110,6 +110,15 @@ describe('sendEvent', () => {
     expect(xmr).not.toHaveBeenCalled();
     sendEvent('myEvent', { ...defaultData, trackLocalhost: true });
     expect(xmr).toHaveBeenCalled();
+  });
+  test('can determine if localStorage is supported in an inlined data:uri iframe', () => {
+    const fauxWindow = {} as Window;
+    const hasLocalStorageSupport = checkLocalStorageSupport(fauxWindow);
+    expect(hasLocalStorageSupport).toBeFalsy();
+  });
+  test('can determine if localStorage is supported in a true DOM environment with a window object', () => {
+    const hasLocalStorageSupport = checkLocalStorageSupport();
+    expect(hasLocalStorageSupport).toBeTruthy();
   });
   test('does not send if "plausible_ignore" is set to "true" in localStorage', () => {
     window.localStorage.setItem('plausible_ignore', 'true');
