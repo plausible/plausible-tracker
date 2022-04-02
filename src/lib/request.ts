@@ -22,7 +22,7 @@ export type EventOptions = {
   /**
    * Properties to be bound to the event.
    */
-  readonly props?: { readonly [propName: string]: string };
+  readonly props?: { readonly [propName: string]: string | number | boolean };
 };
 
 /**
