@@ -35,6 +35,8 @@ describe('tracker', () => {
     props: {
       variation1: 'A',
       variation2: 'B',
+      variation3: 1,
+      variation4: true,
     },
   });
 
