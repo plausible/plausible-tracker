@@ -25,6 +25,30 @@ export type EventOptions = {
   readonly props?: { readonly [propName: string]: string | number | boolean };
 };
 
+export const checkLocalStorageSupport = (
+  g?: Window | typeof globalThis | (Window & typeof globalThis)
+): boolean => {
+  try {
+    if (g) {
+      const supported =
+        'localStorage' in g &&
+        g['localStorage'] !== null &&
+        g['localStorage'].setItem('plausible_test', `1`) === undefined;
+      g['localStorage'].removeItem('plausible_test');
+      return supported;
+    } else {
+      const supported =
+        'localStorage' in window &&
+        window['localStorage'] !== null &&
+        window['localStorage'].setItem('plausible_test', `1`) === undefined;
+      window['localStorage'].removeItem('plausible_test');
+      return supported;
+    }
+  } catch (_e) {
+    return false;
+  }
+};
+
 /**
  * @internal
  * Sends an event to Plausible's API
@@ -48,8 +72,11 @@ export function sendEvent(
     );
   }
 
+  const hasLocalStorageSupport = checkLocalStorageSupport();
   const shouldIgnoreCurrentBrowser =
+    hasLocalStorageSupport &&
     localStorage.getItem('plausible_ignore') === 'true';
+
   if (shouldIgnoreCurrentBrowser) {
     return console.warn(
       '[Plausible] Ignoring event because "plausible_ignore" is set to "true" in localStorage'
