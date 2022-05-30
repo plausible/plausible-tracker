@@ -1,5 +1,7 @@
 import Plausible from './lib/tracker';
-export type { PlausibleOptions } from './lib/tracker';
-export type { EventOptions } from './lib/request';
+import PlausibleOptions from './lib/options';
+import EventOptions from './lib/request';
+export type PlausibleOptions = PlausibleOptions;
+export type EventOptions = EventOptions;
 
 export default Plausible;
