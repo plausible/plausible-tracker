@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [0.3.4](https://github.com/Maronato/plausible-tracker/compare/v0.3.4...v0.3.5) (2022-01-25)
+### [0.3.6](https://github.com/Maronato/plausible-tracker/compare/v0.3.5...v0.3.6) (2022-06-06)
+
+### Bug Fixes
+
+* **tracker:** Don't access localStorage if it is not available #31 ([#31](https://github.com/plausible/plausible-tracker/pull/31))
+* **tracker:** Accept number and boolean as event props ([#27](https://github.com/plausible/plausible-tracker/pull/27))
+
+### [0.3.5](https://github.com/Maronato/plausible-tracker/compare/v0.3.4...v0.3.5) (2022-01-25)
 
 ### Changes
 
