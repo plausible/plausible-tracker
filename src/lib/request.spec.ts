@@ -123,6 +123,20 @@ describe('sendEvent', () => {
 
     window.localStorage.removeItem('plausible_ignore');
   });
+  test('does not throw an error if localStorage is not available', () => {
+    const localStorage = window.localStorage;
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    delete window['localStorage'];
+
+    expect(xmr).not.toHaveBeenCalled();
+    sendEvent('myEvent', defaultData);
+    expect(xmr).toHaveBeenCalled();
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    window.localStorage = localStorage;
+  });
   test('calls callback', () => {
     expect(xmr).not.toHaveBeenCalled();
     const callback = jest.fn();
