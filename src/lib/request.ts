@@ -64,7 +64,7 @@ export function sendEvent(
     d: data.domain,
     r: data.referrer,
     w: data.deviceWidth,
-    h: data.hashMode ? 1 : 0,
+    h: data.hashMode ? 1 : undefined,
     p: options && options.props ? JSON.stringify(options.props) : undefined,
   };
 
