@@ -38,6 +38,7 @@ describe('tracker', () => {
       variation3: 1,
       variation4: true,
     },
+    useSendBeacon: false,
   });
 
   test('inits with default config', () => {
