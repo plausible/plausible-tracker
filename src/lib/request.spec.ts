@@ -19,6 +19,13 @@ let xhrMockClass: ReturnType<typeof getXhrMockClass>;
 
 const xmr = jest.spyOn(window, 'XMLHttpRequest');
 
+Object.assign(navigator, {
+  sendBeacon() {
+    // just making node aware this function exists
+  },
+});
+const sendBeacon = jest.spyOn(navigator, 'sendBeacon');
+
 const defaultData: Required<PlausibleOptions> = {
   hashMode: false,
   trackLocalhost: false,
@@ -77,6 +84,25 @@ describe('sendEvent', () => {
     };
 
     expect(xhrMockClass.send).toHaveBeenCalledWith(JSON.stringify(payload));
+  });
+  test('sends via Navigator#sendBeacon', () => {
+    expect(sendBeacon).not.toHaveBeenCalled();
+    sendEvent('myEvent', defaultData, { useSendBeacon: true });
+    expect(sendBeacon).toHaveBeenCalledTimes(1);
+
+    const payload = {
+      n: 'myEvent',
+      u: defaultData.url,
+      d: defaultData.domain,
+      r: defaultData.referrer,
+      w: defaultData.deviceWidth,
+      h: 0,
+    };
+
+    expect(sendBeacon).toHaveBeenCalledWith(
+      `${defaultData.apiHost}/api/event`,
+      JSON.stringify(payload)
+    );
   });
   test('hash mode', () => {
     expect(xmr).not.toHaveBeenCalled();
