@@ -20,6 +20,7 @@ let xhrMockClass: ReturnType<typeof getXhrMockClass>;
 const xmr = jest.spyOn(window, 'XMLHttpRequest');
 
 const defaultData: Required<PlausibleOptions> = {
+  enabled: true,
   hashMode: false,
   trackLocalhost: false,
   url: 'https://my-app.com/my-url',
@@ -92,6 +93,11 @@ describe('sendEvent', () => {
     };
 
     expect(xhrMockClass.send).toHaveBeenCalledWith(JSON.stringify(payload));
+  });
+  test('does not send when disabled', () => {
+    expect(xmr).not.toHaveBeenCalled();
+    sendEvent('myEvent', { ...defaultData, enabled: false });
+    expect(xmr).not.toHaveBeenCalled();
   });
   test('does not send to localhost', () => {
     window.location.hostname = 'localhost';

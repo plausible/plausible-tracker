@@ -5,6 +5,11 @@ import { EventOptions, sendEvent } from './request';
  */
 export type PlausibleInitOptions = {
   /**
+   * If false, events will not be sent to Plausible.
+   * Defaults to `true`.
+   */
+  readonly enabled?: boolean;
+  /**
    * If true, pageviews will be tracked when the URL hash changes.
    * Enable this if you are using a frontend that uses hash-based routing.
    */
@@ -216,6 +221,7 @@ export default function Plausible(
   readonly enableAutoOutboundTracking: EnableAutoOutboundTracking;
 } {
   const getConfig = (): Required<PlausibleOptions> => ({
+    enabled: true,
     hashMode: false,
     trackLocalhost: false,
     url: location.href,

@@ -37,6 +37,12 @@ export function sendEvent(
   data: Required<PlausibleOptions>,
   options?: EventOptions
 ): void {
+  if (!data.enabled) {
+    return console.warn(
+      '[Plausible] Ignoring event because Plausible is not enabled'
+    );
+  }
+
   const isLocalhost =
     /^localhost$|^127(?:\.[0-9]+){0,2}\.[0-9]+$|^(?:0*:)*?:?0*1$/.test(
       location.hostname
