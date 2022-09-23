@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@size-limit/preset-small-lib": "^7.0.8",
     "@types/jest": "^26.0.14",
     "@types/node": "^16.10.9",
     "@types/sinon": "^9.0.8",
@@ -59,6 +60,7 @@
     "open-cli": "^6.0.1",
     "prettier": "^2.1.1",
     "sinon": "^9.2.0",
+    "size-limit": "^7.0.8",
     "standard-version": "^9.0.0",
     "ts-jest": "^26.4.1",
     "ts-node": "^9.0.0",
@@ -101,5 +103,19 @@
     "exclude": [
       "**/*.spec.js"
     ]
-  }
+  },
+  "size-limit": [
+    {
+      "path": "build/module/*.js"
+    },
+    {
+      "path": "build/module/lib/*.js"
+    },
+    {
+      "path": "build/main/*.js"
+    },
+    {
+      "path": "build/main/lib/*.js"
+    }
+  ]
 }
