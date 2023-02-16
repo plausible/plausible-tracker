@@ -86,7 +86,6 @@ This object takes the same options as the initialization one, plus the following
 | ----------- | ------------------ | ---------------------------------------- | ------------------- |
 | url         | `string`           | Current page's URL.                      | `location.href`     |
 | referrer    | `string` or `null` | Referrer's address                       | `document.referrer` |
-| deviceWidth | `number`           | User's device width for device tracking. | `window.innerWidth` |
 
 
 ```ts

@@ -8,7 +8,6 @@ type EventPayload = {
   readonly u: Location['href'];
   readonly d: Location['hostname'];
   readonly r: Document['referrer'] | null;
-  readonly w: Window['innerWidth'];
   readonly h: 1 | 0;
   readonly p?: string;
 };
@@ -63,7 +62,6 @@ export function sendEvent(
     u: data.url,
     d: data.domain,
     r: data.referrer,
-    w: data.deviceWidth,
     h: data.hashMode ? 1 : 0,
     p: options && options.props ? JSON.stringify(options.props) : undefined,
   };

@@ -16,7 +16,6 @@ describe('tracker', () => {
     url: location.href,
     domain: location.hostname,
     referrer: document.referrer || null,
-    deviceWidth: window.innerWidth,
     apiHost: 'https://plausible.io',
   });
 
@@ -26,7 +25,6 @@ describe('tracker', () => {
     url: 'https://my-url.com',
     domain: 'my-domain.com',
     referrer: 'my-referrer',
-    deviceWidth: 1080,
     apiHost: 'https://my-api-hos.t',
   });
 

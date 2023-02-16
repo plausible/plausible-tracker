@@ -39,11 +39,6 @@ export type PlausibleEventData = {
    * Defaults to `document.referrer`
    */
   readonly referrer?: Document['referrer'] | null;
-  /**
-   * The current device's width.
-   * Defaults to `window.innerWidth`
-   */
-  readonly deviceWidth?: Window['innerWidth'];
 };
 
 /**
@@ -221,7 +216,6 @@ export default function Plausible(
     url: location.href,
     domain: location.hostname,
     referrer: document.referrer || null,
-    deviceWidth: window.innerWidth,
     apiHost: 'https://plausible.io',
     ...defaults,
   });

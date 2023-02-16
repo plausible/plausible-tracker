@@ -25,7 +25,6 @@ const defaultData: Required<PlausibleOptions> = {
   url: 'https://my-app.com/my-url',
   domain: 'my-app.com',
   referrer: null,
-  deviceWidth: 1080,
   apiHost: 'https://plausible.io',
 };
 
@@ -72,7 +71,6 @@ describe('sendEvent', () => {
       u: defaultData.url,
       d: defaultData.domain,
       r: defaultData.referrer,
-      w: defaultData.deviceWidth,
       h: 0,
     };
 
@@ -87,7 +85,6 @@ describe('sendEvent', () => {
       u: defaultData.url,
       d: defaultData.domain,
       r: defaultData.referrer,
-      w: defaultData.deviceWidth,
       h: 1,
     };
 
@@ -157,7 +154,6 @@ describe('sendEvent', () => {
       u: defaultData.url,
       d: defaultData.domain,
       r: defaultData.referrer,
-      w: defaultData.deviceWidth,
       h: 0,
       p: JSON.stringify(props),
     };
