@@ -56,6 +56,7 @@ const plausible = Plausible({
 | hashMode       | `bool`   | Enables tracking based on URL hash changes.                       | `false`                  |
 | trackLocalhost | `bool`   | Enables tracking on *localhost*.                                  | `false`                  |
 | apiHost        | `string` | Plausible's API host to use. Change this if you are self-hosting. | `'https://plausible.io'` |
+| useSendBeacon  | `bool`   | Enables the use of `navigator.sendBeacon` method to send events.  | `false`                  |
 
 The object returned from `Plausible()` contains the functions that you'll use to track your events. These functions are:
 
@@ -207,7 +208,7 @@ You can also track all clicks to outbound links using `enableAutoOutboundTrackin
 
 For details on how to setup the tracking, visit the [docs](https://docs.plausible.io/outbound-link-click-tracking).
 
-This function adds a `click` event listener to all `a` tags on the page and reports them to Plausible. It also creates a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) that efficiently tracks node mutations, so dynamically-added links are also tracked.
+This function adds a `click` event listener to all `a` tags on the page and reports them to Plausible. It also creates a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) that efficiently tracks node mutations, so dynamically-added links are also tracked. Event is sent with `navigator.sendBeacon` method.
 
 ```ts
 import Plausible from 'plausible-tracker'

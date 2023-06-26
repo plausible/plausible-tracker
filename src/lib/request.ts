@@ -13,10 +13,10 @@ type EventPayload = {
   readonly p?: string;
 };
 
-// eslint-disable-next-line functional/no-mixed-type
 export type EventOptions = {
   /**
    * Callback called when the event is successfully sent.
+   * Does not work with `useSendBeacon = true`.
    */
   readonly callback?: () => void;
   /**
@@ -68,15 +68,19 @@ export function sendEvent(
     p: options && options.props ? JSON.stringify(options.props) : undefined,
   };
 
-  const req = new XMLHttpRequest();
-  req.open('POST', `${data.apiHost}/api/event`, true);
-  req.setRequestHeader('Content-Type', 'text/plain');
-  req.send(JSON.stringify(payload));
-  // eslint-disable-next-line functional/immutable-data
-  req.onreadystatechange = () => {
-    if (req.readyState !== 4) return;
-    if (options && options.callback) {
-      options.callback();
-    }
-  };
+  if (!data?.useSendBeacon) {
+    const req = new XMLHttpRequest();
+    req.open('POST', `${data.apiHost}/api/event`, true);
+    req.setRequestHeader('Content-Type', 'text/plain');
+    req.send(JSON.stringify(payload));
+    // eslint-disable-next-line functional/immutable-data
+    req.onreadystatechange = () => {
+      if (req.readyState !== 4) return;
+      if (options && options.callback) {
+        options.callback();
+      }
+    };
+  } else {
+    navigator.sendBeacon(`${data.apiHost}/api/event`, JSON.stringify(payload));
+  }
 }

@@ -23,6 +23,11 @@ export type PlausibleInitOptions = {
    * Defaults to `'https://plausible.io'`
    */
   readonly apiHost?: string;
+  /**
+   * Whether to use `Navigator#sendBeacon`.
+   * Defaults to `false`.
+   */
+  readonly useSendBeacon?: boolean;
 };
 
 /**
@@ -223,6 +228,7 @@ export default function Plausible(
     referrer: document.referrer || null,
     deviceWidth: window.innerWidth,
     apiHost: 'https://plausible.io',
+    useSendBeacon: false,
     ...defaults,
   });
 
@@ -276,26 +282,8 @@ export default function Plausible(
       attributeFilter: ['href'],
     }
   ) => {
-    function trackClick(this: HTMLAnchorElement, event: MouseEvent) {
-      trackEvent('Outbound Link: Click', { props: { url: this.href } });
-
-      /* istanbul ignore next */
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      if (
-        !(
-          typeof process !== 'undefined' &&
-          process &&
-          process.env.NODE_ENV === 'test'
-        )
-      ) {
-        setTimeout(() => {
-          // eslint-disable-next-line functional/immutable-data
-          location.href = this.href;
-        }, 150);
-      }
-
-      event.preventDefault();
+    function trackClick(this: HTMLAnchorElement, _: MouseEvent) {
+      trackEvent('Outbound Link: Click', { props: { url: this.href } }, { useSendBeacon: true });
     }
 
     // eslint-disable-next-line functional/prefer-readonly-type
