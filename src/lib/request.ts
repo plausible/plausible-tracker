@@ -23,10 +23,6 @@ export type EventOptions = {
    * Properties to be bound to the event.
    */
   readonly props?: { readonly [propName: string]: string | number | boolean };
-  /**
-   * Whether to use `Navigator#sendBeacon`.
-   */
-  readonly useSendBeacon?: boolean;
 };
 
 /**
@@ -72,7 +68,7 @@ export function sendEvent(
     p: options && options.props ? JSON.stringify(options.props) : undefined,
   };
 
-  if (!options?.useSendBeacon) {
+  if (!data?.useSendBeacon) {
     const req = new XMLHttpRequest();
     req.open('POST', `${data.apiHost}/api/event`, true);
     req.setRequestHeader('Content-Type', 'text/plain');

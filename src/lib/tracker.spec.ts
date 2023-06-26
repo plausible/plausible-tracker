@@ -13,6 +13,7 @@ describe('tracker', () => {
   const getDefaultData: () => Required<PlausibleOptions> = () => ({
     hashMode: false,
     trackLocalhost: false,
+    useSendBeacon: false,
     url: location.href,
     domain: location.hostname,
     referrer: document.referrer || null,
@@ -23,6 +24,7 @@ describe('tracker', () => {
   const getCustomData: () => Required<PlausibleOptions> = () => ({
     hashMode: true,
     trackLocalhost: true,
+    useSendBeacon: false,
     url: 'https://my-url.com',
     domain: 'my-domain.com',
     referrer: 'my-referrer',
@@ -38,7 +40,6 @@ describe('tracker', () => {
       variation3: 1,
       variation4: true,
     },
-    useSendBeacon: false,
   });
 
   test('inits with default config', () => {

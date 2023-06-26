@@ -29,6 +29,7 @@ const sendBeacon = jest.spyOn(navigator, 'sendBeacon');
 const defaultData: Required<PlausibleOptions> = {
   hashMode: false,
   trackLocalhost: false,
+  useSendBeacon: false,
   url: 'https://my-app.com/my-url',
   domain: 'my-app.com',
   referrer: null,
@@ -87,7 +88,7 @@ describe('sendEvent', () => {
   });
   test('sends via Navigator#sendBeacon', () => {
     expect(sendBeacon).not.toHaveBeenCalled();
-    sendEvent('myEvent', defaultData, { useSendBeacon: true });
+    sendEvent('myEvent', { ...defaultData, useSendBeacon: true });
     expect(sendBeacon).toHaveBeenCalledTimes(1);
 
     const payload = {
