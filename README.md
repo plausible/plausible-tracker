@@ -4,10 +4,6 @@
 
 [![Build Status](https://travis-ci.com/plausible/plausible-tracker.svg?branch=master)](https://travis-ci.com/plausible/plausible-tracker) [![codecov](https://codecov.io/gh/plausible/plausible-tracker/branch/master/graph/badge.svg)](https://codecov.io/gh/plausible/plausible-tracker) [![Netlify Status](https://api.netlify.com/api/v1/badges/d29c0d49-6ba4-412b-af90-d21865eb40f2/deploy-status)](https://app.netlify.com/sites/plausible-tracker/deploys)
 
-
-[![dependencies Status](https://david-dm.org/plausible/plausible-tracker/status.svg)](https://david-dm.org/maronato/plausible-tracker) [![devDependencies Status](https://david-dm.org/plausible/plausible-tracker/dev-status.svg)](https://david-dm.org/maronato/plausible-tracker?type=dev)
-
-
 Frontend library to interact with [Plausible Analytics](https://plausible.io/).
 
 - [Plausible Analytics Tracker](#plausible-analytics-tracker)
