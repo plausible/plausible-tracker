@@ -19,7 +19,7 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "unbuild:stub": "unbuild --stub",
+    "build:stub": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp",
