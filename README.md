@@ -6,6 +6,19 @@ New features:
 
 - Display payload in console on local development
 
+Use in your project:
+
+```json
+{
+  "plausible-tracker": "npm:@barbapapazes/plausible-tracker@latest"
+}
+```
+
+Add this line in your dependencies in `package.json` and install your dependencies.
+
+> [!NOTE]
+> If you was using `plausible-tracker` within a framework module, this patch will **work**.
+
 ---
 
 Frontend library to interact with [Plausible Analytics](https://plausible.io/).
