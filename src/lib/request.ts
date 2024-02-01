@@ -42,9 +42,19 @@ export function sendEvent(
       location.hostname
     ) || location.protocol === 'file:';
 
+  const payload: EventPayload = {
+    n: eventName,
+    u: data.url,
+    d: data.domain,
+    r: data.referrer,
+    w: data.deviceWidth,
+    h: data.hashMode ? 1 : 0,
+    p: options && options.props ? JSON.stringify(options.props) : undefined,
+  };
+
   if (!data.trackLocalhost && isLocalhost) {
     return console.warn(
-      '[Plausible] Ignoring event because website is running locally'
+      `[Plausible] Ignoring event`, payload
     );
   }
 
@@ -58,25 +68,17 @@ export function sendEvent(
     null;
   }
 
-  const payload: EventPayload = {
-    n: eventName,
-    u: data.url,
-    d: data.domain,
-    r: data.referrer,
-    w: data.deviceWidth,
-    h: data.hashMode ? 1 : 0,
-    p: options && options.props ? JSON.stringify(options.props) : undefined,
-  };
-
-  const req = new XMLHttpRequest();
-  req.open('POST', `${data.apiHost}/api/event`, true);
-  req.setRequestHeader('Content-Type', 'text/plain');
-  req.send(JSON.stringify(payload));
-  // eslint-disable-next-line functional/immutable-data
-  req.onreadystatechange = () => {
-    if (req.readyState !== 4) return;
-    if (options && options.callback) {
-      options.callback();
+  fetch(`${data.apiHost}/api/event`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'text/plain',
+    },
+    body: JSON.stringify(payload),
+  }).then((response) => {
+    if (response.ok) {
+      if (options && options.callback) {
+        options.callback();
+      }
     }
-  };
+  });
 }

@@ -2,6 +2,12 @@
 
 > Fork from [plausible-tracker](https://github.com/plausible/plausible-tracker)
 
+New features:
+
+- Display payload in console on local development
+
+---
+
 Frontend library to interact with [Plausible Analytics](https://plausible.io/).
 
 - [Plausible Analytics Tracker](#plausible-analytics-tracker)

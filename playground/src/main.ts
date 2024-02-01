@@ -5,3 +5,10 @@ const plausible = Plausible({
 })
 
 plausible.enableAutoPageviews()
+
+plausible.trackEvent('test', {
+  props: {
+    test: 'test',
+  },
+  callback: () => console.log('test'),
+})
