@@ -88,7 +88,6 @@ This object takes the same options as the initialization one, plus the following
 | referrer    | `string` or `null` | Referrer's address                       | `document.referrer` |
 | deviceWidth | `number`           | User's device width for device tracking. | `window.innerWidth` |
 
-
 ```ts
 import Plausible from 'plausible-tracker'
 
@@ -104,7 +103,7 @@ trackPageview({
 })
 ```
 
-The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
+The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals).
 
 ```ts
 import Plausible from 'plausible-tracker'
