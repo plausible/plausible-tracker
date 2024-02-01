@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    // Lower version for better compatibility
-    "module": "ES2015",
+    "module": "ESNext",
     "moduleResolution": "Node",
     "resolveJsonModule": true,
     "types": [
