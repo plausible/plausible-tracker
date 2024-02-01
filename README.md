@@ -16,8 +16,7 @@ Use in your project:
 
 Add this line in your dependencies in `package.json` and install your dependencies.
 
-> [!NOTE]
-> If you was using `plausible-tracker` within a framework module, this patch will **work**.
+If `plausible-tracker` was a sub dependency, use the `overrides` key `package.json`. More info [for npm](https://stackoverflow.com/questions/15806152/how-do-i-override-nested-npm-dependency-versions) or for [pnpm](https://pnpm.io/package_json#pnpmoverrides).
 
 ---
 
