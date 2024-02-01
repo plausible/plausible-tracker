@@ -19,10 +19,13 @@
   ],
   "scripts": {
     "build": "unbuild",
+    "unbuild:stub": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
+    "release": "bumpp",
     "test": "npm run build && npm run test:unit",
-    "test:unit": "nyc --silent jest --collect-coverage"
+    "test:unit": "nyc --silent jest --collect-coverage",
+    "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.3",
