@@ -115,7 +115,7 @@ const { trackPageview } = Plausible({
 // Override it on this call and also set a custom url
 trackPageview({
   trackLocalhost: false,
-  url: "https://my-app.com/my-url"
+  url: 'https://my-app.com/my-url'
 })
 ```
 
@@ -127,7 +127,7 @@ import Plausible from 'plausible-tracker'
 const { trackPageview } = Plausible()
 
 // And override it on this call
-trackPageview({}, { callback: () => console.log("Done!") })
+trackPageview({}, { callback: () => console.log('Done!') })
 ```
 
 ### Automatically tracking page views
@@ -213,7 +213,7 @@ trackEvent(
     }
   },
   { trackLocalhost: true }
-);
+)
 ```
 
 ### Outbound link click tracking

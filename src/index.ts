@@ -58,7 +58,9 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
   function enableAutoPageviews(initOptions?: EventOptions) {
     const options: EventOptions = { ...initOptions }
 
-    function page() { trackPageview(options) }
+    function page() {
+      trackPageview(options)
+    }
 
     // Attach pushState and popState listeners
     const originalPushState = history.pushState
@@ -117,7 +119,7 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
     function handleLinkClickEvent(this: HTMLAnchorElement, event: MouseEvent) {
       const location = window.location as (Location & string) as string
       // If not left click and not middle click, do nothing.
-      if (event.type === 'auxclick' && event.button !== 1 || !isOutboundLink(this, location))
+      if ((event.type === 'auxclick' && event.button !== 1) || !isOutboundLink(this, location))
         return
 
       // There is an href since it's an outbound link.
