@@ -1,14 +1,17 @@
-import Plausible from '@barbapapazes/plausible-tracker'
+import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
 
-const plausible = Plausible({
-  domain: 'example.com',
-})
+const plausible = createPlausibleTracker()
 
 plausible.enableAutoPageviews()
+plausible.enableOutboundTracking()
 
-plausible.trackEvent('test', {
-  props: {
-    test: 'test',
-  },
-  callback: () => console.log('test'),
+document.getElementById('btn')?.addEventListener('click', () => {
+  plausible.trackEvent('click', { props: { btn: 'btn' } })
+})
+
+// Use this to test the auto pageview tracking
+document.getElementById('navigation')?.addEventListener('click', () => {
+  const url = new URL(location.href)
+  url.pathname = '/page2'
+  window.history.pushState({}, '', url)
 })

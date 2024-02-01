@@ -5,11 +5,16 @@
   "description": "Fork of frontend tracker to interact with Plausible Analytics",
   "license": "MIT",
   "repository": "https://github.com/barbapapazes/plausible-tracker",
-  "keywords": [],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.cjs"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.cts",
+        "default": "./dist/index.cjs"
+      }
     }
   },
   "main": "./dist/index.cjs",
