@@ -19,36 +19,20 @@
   ],
   "scripts": {
     "build": "unbuild",
-    "build:stub": "unbuild --stub",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "release": "bumpp",
-    "test": "npm run build && npm run test:unit",
-    "test:unit": "nyc --silent jest --collect-coverage",
+    "test": "vitest",
     "prepublishOnly": "pnpm run build"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.6.3",
-    "@istanbuljs/nyc-config-typescript": "^1.0.2",
-    "@types/jest": "^29.5.11",
     "@types/node": "^18.19.13",
-    "@types/sinon": "^17.0.3",
     "bumpp": "^9.3.0",
-    "codecov": "^3.8.3",
     "eslint": "^8.56.0",
-    "jest": "^29.7.0",
-    "jsdom": "^24.0.0",
-    "nyc": "^15.1.0",
-    "ts-jest": "^29.1.2",
-    "ts-node": "^10.9.2",
+    "happy-dom": "^13.3.8",
     "typescript": "^5.3.3",
-    "unbuild": "^2.0.0"
-  },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "extension": ".ts",
-    "exclude": [
-      "**/*.spec.js"
-    ]
+    "unbuild": "^2.0.0",
+    "vitest": "^1.2.2"
   }
 }
