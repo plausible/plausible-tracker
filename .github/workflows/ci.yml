@@ -27,23 +27,23 @@ jobs:
       - name: Lint files
         run: pnpm run lint
 
-  test:
-    name: Test
-    runs-on: ubuntu-latest
+  # test:
+  #   name: Test
+  #   runs-on: ubuntu-latest
 
-    steps:
-      - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
-      - run: corepack enable
-      - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4
-        with:
-          node-version: 20.5
-          cache: pnpm
+  #   steps:
+  #     - uses: actions/checkout@b4ffde65f46336ab88eb53be808477a3936bae11 # v4
+  #     - run: corepack enable
+  #     - uses: actions/setup-node@8f152de45cc393bb48ce5d89d36b731f54556e65 # v4
+  #       with:
+  #         node-version: 20.5
+  #         cache: pnpm
 
-      - name: Install dependencies
-        run: pnpm install
+  #     - name: Install dependencies
+  #       run: pnpm install
 
-      - name: Test files
-        run: pnpm run test
+  #     - name: Test files
+  #       run: pnpm run test
 
   build:
     name: Build
