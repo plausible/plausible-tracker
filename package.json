@@ -15,9 +15,30 @@
         "types": "./dist/index.d.cts",
         "default": "./dist/index.cjs"
       }
+    },
+    "./extensions/*": {
+      "import": {
+        "types": "./dist/extensions/*.d.ts",
+        "default": "./dist/extensions/*.mjs"
+      },
+      "require": {
+        "types": "./dist/extensions/*.d.ts",
+        "default": "./dist/extensions/*.cjs"
+      }
+    },
+    "./extensions": {
+      "import": {
+        "types": "./dist/extensions/index.d.ts",
+        "default": "./dist/extensions/index.mjs"
+      },
+      "require": {
+        "types": "./dist/extensions/index.d.ts",
+        "default": "./dist/extensions/index.cjs"
+      }
     }
   },
   "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
     "dist"

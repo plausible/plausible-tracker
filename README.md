@@ -1,260 +1,124 @@
 # Plausible Analytics Tracker
 
-> Fork from [plausible-tracker](https://github.com/plausible/plausible-tracker)
+[![npm version][npm-version-src]][npm-version-href]
+[![npm downloads][npm-downloads-src]][npm-downloads-href]
 
-New features:
+A rewrite of [plausible-tracker](https://github.com/plausible/plausible-tracker) with extensibility and future features in mind.
 
-- Display payload in console on local development
+> [!IMPORTANT]
+> This is not a drop-in replacement.
 
-Use in your project:
+## Why a rewrite?
 
-```json
-{
-  "plausible-tracker": "npm:@barbapapazes/plausible-tracker@latest"
-}
-```
+The original tracker from the Plausible team have not received updates for more than 2 years.
 
-Add this line in your dependencies in `package.json` and install your dependencies.
+Since then, the [script tracker](https://plausible.io/docs/script-extensions) have evolved but not the npm package. The file downlaods and revenue tracking are not supported, for example.
 
-If `plausible-tracker` was a sub dependency, use the `overrides` key `package.json`. More info [for npm](https://stackoverflow.com/questions/15806152/how-do-i-override-nested-npm-dependency-versions) or for [pnpm](https://pnpm.io/package_json#pnpmoverrides).
-
----
-
-Frontend library to interact with [Plausible Analytics](https://plausible.io/).
-
-- [Plausible Analytics Tracker](#plausible-analytics-tracker)
-  - [Features](#features)
-  - [Installation](#installation)
-  - [Usage](#usage)
-    - [Tracking page views](#tracking-page-views)
-    - [Automatically tracking page views](#automatically-tracking-page-views)
-      - [Cleaning up the event listeners](#cleaning-up-the-event-listeners)
-    - [Tracking custom events and goals](#tracking-custom-events-and-goals)
-    - [Outbound link click tracking](#outbound-link-click-tracking)
-      - [Cleaning up the event listeners](#cleaning-up-the-event-listeners-1)
-  - [Reference documentation](#reference-documentation)
-
-## Features
-- Less than 1kb!
-- Same features as the official script, but as an NPM module
-- Automatically track page views in your SPA apps
-- Track goals and custom events
-- Provide manual values that will be bound to the event
-- Full typescript support
-
-## Installation
-
-To install, simply run:
-
-```bash
-npm install plausible-tracker
-
-yarn add plausible-tracker
-```
+Also, some serious issues were opened and not addressed. The outbound tracking was breaking the `target="_blank"` attribute, for example.
 
 ## Usage
 
-To begin tracking events, you must initialize the tracker:
+First, install the package:
 
-```ts
-import Plausible from 'plausible-tracker'
-
-const plausible = Plausible({
-  domain: 'my-app.com'
-})
+```bash
+npm install @barbapapazes/plausible-tracker
 ```
 
-`Plausible()` accepts some [options](https://plausible-tracker.netlify.app/globals.html#plausibleinitoptions) that you may want to provide:
-
-| Option         | Type     | Description                                                       | Default                  |
-| -------------- | -------- | ----------------------------------------------------------------- | ------------------------ |
-| domain         | `string` | Your site's domain, as declared by you in Plausible's settings    | `location.hostname`      |
-| hashMode       | `bool`   | Enables tracking based on URL hash changes.                       | `false`                  |
-| trackLocalhost | `bool`   | Enables tracking on *localhost*.                                  | `false`                  |
-| apiHost        | `string` | Plausible's API host to use. Change this if you are self-hosting. | `'https://plausible.io'` |
-
-The object returned from `Plausible()` contains the functions that you'll use to track your events. These functions are:
-
-- [`trackPageview()`](https://plausible-tracker.netlify.app/globals.html#trackpageview): Tracks a single page view.
-- [`trackEvent()`](https://plausible-tracker.netlify.app/globals.html#trackevent): Tracks custom events and goals
-- [`enableAutoPageviews()`](https://plausible-tracker.netlify.app/globals.html#enableautopageviews): Enables automatic page view tracking for SPAs
-
-For the complete documentation on these functions and their parameters, check out the [reference documentation](https://plausible-tracker.netlify.app/).
-
-### Tracking page views
-
-To track a page view, use the `trackPageview` function provided
+Then, use it in your code:
 
 ```ts
-import Plausible from 'plausible-tracker'
+import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
 
-const { trackPageview } = Plausible()
+const plausible = createPlausibleTracker()
 
-// Track a page view
-trackPageview()
+plausible.trackPageview() // Track a page view
+plausible.trackEvent('signup') // Track a custom event
 ```
 
-You may also override the values you provided when initializing the tracker by passing a [similar object](https://plausible-tracker.netlify.app/globals.html#plausibleoptions) as the first parameter.
+> [!NOTE]
+> The `trackPageview` is a wrapper around `trackEvent` with the `pageview` event name.
 
-This object takes the same options as the initialization one, plus the following:
+First argument of `trackPageview` and second of `trackEvent` is an object accepting props, data and a callback that is triggered after the event is sent.
 
-| Option      | Type               | Description                              | Default             |
-| ----------- | ------------------ | ---------------------------------------- | ------------------- |
-| url         | `string`           | Current page's URL.                      | `location.href`     |
-| referrer    | `string` or `null` | Referrer's address                       | `document.referrer` |
-| deviceWidth | `number`           | User's device width for device tracking. | `window.innerWidth` |
+Props are similar to the ones provided by the [official Plausible script](https://plausible.io/docs/custom-props/for-custom-events#2-using-the-manual-method).
+
+Data allows you to override some values like the `url`, `referrer` and `deviceWidth`.
 
 ```ts
-import Plausible from 'plausible-tracker'
-
-const { trackPageview } = Plausible({
-  // Track localhost by default
-  trackLocalhost: true,
-})
-
-// Override it on this call and also set a custom url
-trackPageview({
-  trackLocalhost: false,
-  url: 'https://my-app.com/my-url'
-})
+plausible.trackEvent('signup', { props: { variation: 'button A' }, callback: () => console.log('sended') }) // Track a custom event with a custom prop with a callback
 ```
 
-The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals).
+This core tracker is minimal and does not include any extensions. So you can easily compose it to avoid to ship code that you don't need.
+
+## Extensions
+
+The extensions are the features that are not included in the core tracker.
+
+> [!NOTE]
+> Extensions will help to maintain the package up to date with the official script.
+
+Current extensions:
+
+- [Auto pageview tracking](https://plausible.io/docs/auto-pageview-tracking)
+- [Outbound link click tracking](https://plausible.io/docs/outbound-link-click-tracking)
+
+### Auto pageview tracking
 
 ```ts
-import Plausible from 'plausible-tracker'
+import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
 
-const { trackPageview } = Plausible()
+const plausible = createPlausibleTracker()
 
-// And override it on this call
-trackPageview({}, { callback: () => console.log('Done!') })
-```
+const { install, cleanup, setPageOptions } = useAutoPageviews(plausible)
 
-### Automatically tracking page views
+install()
 
-If your app is a SPA that uses JS-based routing, you'll need to use browser events to manually track page views. A built-in function `enableAutoPageviews` enables automatic tracking for you so you don't need to write custom logic.
-
-```ts
-import Plausible from 'plausible-tracker'
-
-const { enableAutoPageviews } = Plausible()
-
-// This tracks the current page view and all future ones as well
-enableAutoPageviews()
-```
-
-If your app uses URL hashes to represent pages, set `hashMode` to `true`:
-
-```ts
-import Plausible from 'plausible-tracker'
-
-const { enableAutoPageviews } = Plausible({
-  hashMode: true
-})
-
-// Hash changes will also trigger page views
-enableAutoPageviews()
-```
-
-The way it works is by overriding `history.pushState` and attaching event listeners to `popstate` and `hashchange` (only if you set `hashMode` to `true`). If your frontend framework uses other methods to manage navigation, you might want to write your own logic using `trackPageview` to manually trigger page views.
-
-#### Cleaning up the event listeners
-
-When you call `enableAutoPageviews()`, it adds some event listeners and overrides `history.pushState`. To remove them and restore `history.pushState`, call the cleanup function returned by `enableAutoPageviews()`:
-
-```ts
-import Plausible from 'plausible-tracker'
-
-const { enableAutoPageviews } = Plausible()
-
-const cleanup = enableAutoPageviews()
-
-// ...
-
-// Remove event listeners and restore history.pushState
+// At any time, you can stop the auto pageview tracking
 cleanup()
-```
 
-### Tracking custom events and goals
-
-To track goals, all you need to do is call `trackEvent` and give it the name of the goal/event as the first parameter:
-
-```ts
-import Plausible from 'plausible-tracker'
-
-const { trackEvent } = Plausible()
-
-// Tracks the 'signup' goal
-trackEvent('signup')
-```
-
-Custom props can be provided using the second parameter:
-```ts
-// Tracks the 'download' goal and provides a 'method' property.
-trackEvent('download', { props: { method: 'HTTP' } })
-```
-
-As with [`trackPageview`](#tracking-page-views), you may also provide override values but now through the third parameter:
-
-```ts
-import Plausible from 'plausible-tracker'
-
-const { trackEvent } = Plausible({
-  trackLocalhost: false,
-})
-
-// Tracks the 'signup' goal with a callback, props and a different referrer.
-trackEvent(
-  'signup',
-  {
-    callback: () => console.log('done'),
-    props: {
-      variation: 'button A'
-    }
-  },
-  { trackLocalhost: true }
-)
+// You can also set the page options
+setPageOptions({ props: { variation: 'button A' } })
+// Now, every page view will include the prop `variation: 'button A'`
 ```
 
 ### Outbound link click tracking
 
-You can also track all clicks to outbound links using `enableAutoOutboundTracking`.
-
-For details on how to setup the tracking, visit the [docs](https://docs.plausible.io/outbound-link-click-tracking).
-
-This function adds a `click` event listener to all `a` tags on the page and reports them to Plausible. It also creates a [MutationObserver](https://developer.mozilla.org/en-US/docs/Web/API/MutationObserver) that efficiently tracks node mutations, so dynamically-added links are also tracked.
-
 ```ts
-import Plausible from 'plausible-tracker'
+import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
 
-const { enableAutoOutboundTracking } = Plausible()
+const plausible = createPlausibleTracker()
 
-// Track all existing and future outbound links
-enableAutoOutboundTracking()
-```
+const { install, cleanup, setPageOptions } = useOutboundLinkTracking(plausible)
 
-#### Cleaning up the event listeners
+install()
 
-When you call `enableAutoOutboundTracking()`, it adds some event listeners and initializes a `MutationObserver`. To remove them, call the cleanup function returned by `enableAutoOutboundTracking()`:
-
-```ts
-import Plausible from 'plausible-tracker'
-
-const { enableAutoOutboundTracking } = Plausible()
-
-const cleanup = enableAutoOutboundTracking()
-
-// ...
-
-// Remove event listeners and disconnect the MutationObserver
+// At any time, you can stop the outbound link tracking
 cleanup()
+
+// You can also set the page options
+setPageOptions({ props: { variation: 'button A' } })
 ```
 
-### Opt out and exclude yourself from the analytics
+## Contribute
 
-Since plausible-tracker is bundled with your application code, using an ad-blocker to exclude your visits isn't an option. Fortunately Plausible has an alternative for this scenario: plausible-tracker will not send events if `localStorage.plausible_ignore` is set to `"true"`.
+Contributions are more than welcome. I'm not part of the Plausible team and I'm doing this in my free time. 💛
 
-More information about this method can be found in the [Plausible documentation](https://plausible.io/docs/excluding-localstorage).
+- Fork the repository
+- Install the dependencies: `pnpm install`
+- Build the project: `pnpm build`
+- Use playground to test your changes: `cd playground && pnpm dev`
 
-## Reference documentation
-For the full method and type documentation, check out the [reference documentation](https://plausible-tracker.netlify.app).
+Thank you for your help!
+
+## License
+
+[MIT](./LICENSE) © [Barbapapazes](https://github.com/barbapapazes)
+
+This package is not affiliated with Plausible Analytics but inspired by their work.
+[plausible-tracker](https://github.com/plausible/plausible-tracker)
+[Plausible Analytics Tracker](https://github.com/plausible/analytics/tree/master/tracker)
+
+[npm-version-src]: https://img.shields.io/npm/v/@barbapapazes/plausible-tracker?style=flat&colorA=18181B&colorB=0ea5e9
+[npm-version-href]: https://npmjs.com/package/@barbapapazes/plausible-tracker
+[npm-downloads-src]: https://img.shields.io/npm/dm/@barbapapazes/plausible-tracker?style=flat&colorA=18181B&colorB=0ea5e9
+[npm-downloads-href]: https://npmjs.com/package/@barbapapazes/plausible-tracker

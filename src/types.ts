@@ -1,3 +1,20 @@
+export interface Plausible {
+  options: PlausibleOptions
+  /**
+   * Send a custom event.
+   *
+   * @param eventName - The event name
+   * @param options - The event options
+   */
+  trackEvent(eventName: string, options?: EventOptions): void
+  /**
+   * Send a pageview event.
+   *
+   * @param options - The event options
+   */
+  trackPageview(options?: EventOptions): void
+}
+
 export enum EventName {
   /**
    * The pageview event.
