@@ -27,10 +27,15 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
     // Avoid to retrigger a navigation if trackEvent callback is called but setTimeout trigger at the same time.
     let followedLink = false
 
-    function followLink() {
+    // Use arrow function to keep the context of `this` as the anchor element.
+    const followLink = () => {
       if (!followedLink) {
         followedLink = true
-        window.location = href as (string & Location)
+        const target = this.getAttribute('target') || '_self'
+        const rel = this.getAttribute('rel') || ''
+
+        const windowFeatures = rel.split(' ').join(',')
+        window.open(href, target, windowFeatures)
       }
     }
 

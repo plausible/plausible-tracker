@@ -12,9 +12,21 @@
       <p>
         This is a playground. Inspect the page using the console and the network to debug the tracker.
       </p>
-      <a href="https://plausible.io/docs/plausible-script" target="_blank">Documentation (external)</a>
-      <a href="https://plausible.io/docs/plausible-script">Documentation (same page)</a>
-      <button id="navigation">Click me (navigation event)</button>
+      <ul>
+        <li>
+          <a href="https://plausible.io/docs/plausible-script" target="_blank">Documentation (external)</a>
+        </li>
+        <li>
+          <a href="https://plausible.io/docs/plausible-script">Documentation (same page)</a>
+        </li>
+          <li>
+          <a href="https://plausible.io/docs/plausible-script" rel="noopener nofollow">Documentation (same page, noopener)</a>
+        </li>
+        <li>
+          <a href="https://plausible.io/docs/plausible-script" rel="noreferrer nofollow">Documentation (same page, noreferrer)</a>
+        </li>
+      </ul>
+        <button id="navigation">Click me (navigation event)</button>
       <button id="btn">Click me (custom event)</button>
       <button id="cleanup">Cleanup</button>
     </div>
