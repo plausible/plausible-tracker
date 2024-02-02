@@ -1,5 +1,4 @@
 import type { EventOptions, Plausible } from '../index'
-import { EventName } from '../index'
 
 export function useAutoOutboundTracking(plausible: Plausible, initOptions?: EventOptions) {
   const options: EventOptions = { ...initOptions }
@@ -41,13 +40,13 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
 
     const props = { url: href }
     if (shouldFollowLink(event, this)) {
-      plausible.trackEvent(EventName.OutboundLink, { props, callback: followLink })
+      plausible.trackEvent('Outbound Link: Click', { props, callback: followLink })
       // Fall back if the callback doesn't fire
       setTimeout(followLink, 1000)
       event.preventDefault()
     }
     else {
-      plausible.trackEvent(EventName.OutboundLink, { props })
+      plausible.trackEvent('Outbound Link: Click', { props })
     }
   }
 

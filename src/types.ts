@@ -6,7 +6,7 @@ export interface Plausible {
    * @param eventName - The event name
    * @param options - The event options
    */
-  trackEvent(eventName: string, options?: EventOptions): void
+  trackEvent(eventName: EventName, options?: EventOptions): void
   /**
    * Send a pageview event.
    *
@@ -15,16 +15,7 @@ export interface Plausible {
   trackPageview(options?: EventOptions): void
 }
 
-export enum EventName {
-  /**
-   * The pageview event.
-   */
-  Pageview = 'pageview',
-  /**
-   * The outbound link event.
-   */
-  OutboundLink = 'Outbound Link: Click',
-}
+export type EventName = 'pageview' | 'Outbound Link: Click' | string & Record<never, never>
 
 export interface PlausibleOptions {
   /**

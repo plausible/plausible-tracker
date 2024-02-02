@@ -5,8 +5,7 @@
 
 import { sendEvent as _sendEvent, createEventData, isBlackListed, isFile, isUserExcludeItself } from './event'
 import { createPayload } from './payload'
-import { EventName } from './types'
-import type { EventOptions, EventPayload, Plausible, PlausibleOptions } from './types'
+import type { EventName, EventOptions, EventPayload, Plausible, PlausibleOptions } from './types'
 
 /**
  * Create a Plausible tracker.
@@ -38,7 +37,7 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
    * @param eventName - The event name
    * @param options - The event options
    */
-  function trackEvent(eventName: string, options?: EventOptions) {
+  function trackEvent(eventName: EventName, options?: EventOptions) {
     const data = createEventData(options?.data)
     const payload = createPayload(eventName, plausibleOptions, data, options)
 
@@ -61,7 +60,7 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
    * Send a pageview event.
    */
   function trackPageview(options?: EventOptions) {
-    trackEvent(EventName.Pageview, options)
+    trackEvent('pageview', options)
   }
 
   return {
