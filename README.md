@@ -66,6 +66,7 @@ Current extensions:
 
 ```ts
 import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
+import { useAutoPageviews } from '@barbapapazes/plausible-tracker/extensions'
 
 const plausible = createPlausibleTracker()
 
@@ -85,6 +86,7 @@ setPageOptions({ props: { variation: 'button A' } })
 
 ```ts
 import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
+import { useAutoOutboundTracking } from '@barbapapazes/plausible-tracker/extensions'
 
 const plausible = createPlausibleTracker()
 
