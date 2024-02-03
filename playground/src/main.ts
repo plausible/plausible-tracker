@@ -1,13 +1,15 @@
 import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
-import { useAutoOutboundTracking, useAutoPageviews } from '@barbapapazes/plausible-tracker/extensions'
+import { defaultFileTypes, useAutoFileDownloadsTracking, useAutoOutboundTracking, useAutoPageviews } from '@barbapapazes/plausible-tracker/extensions'
 
 const plausible = createPlausibleTracker()
 
 const { install: installAutoPageviews, cleanup: cleanupAutoPageViews } = useAutoPageviews(plausible)
 const { install: installAutoOutboundTracking, cleanup: cleanupAutoOutboundTracking } = useAutoOutboundTracking(plausible)
+const { install: installAutoFileDownloadsTracking, cleanup: cleanupAutoFileDownloadsTracking } = useAutoFileDownloadsTracking(plausible, { fileTypes: ['svg', ...defaultFileTypes] })
 
 installAutoPageviews()
 installAutoOutboundTracking()
+installAutoFileDownloadsTracking()
 
 document.getElementById('btn')?.addEventListener('click', () => {
   plausible.trackEvent('click', { props: { btn: 'btn' } })
@@ -24,4 +26,5 @@ document.getElementById('navigation')?.addEventListener('click', () => {
 document.getElementById('cleanup')?.addEventListener('click', () => {
   cleanupAutoPageViews()
   cleanupAutoOutboundTracking()
+  cleanupAutoFileDownloadsTracking()
 })

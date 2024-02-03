@@ -61,6 +61,7 @@ Current extensions:
 
 - [Auto pageview tracking](https://plausible.io/docs/auto-pageview-tracking)
 - [Outbound link click tracking](https://plausible.io/docs/outbound-link-click-tracking)
+- [File downloads tracking](https://plausible.io/docs/file-downloads-tracking)
 
 ### Auto pageview tracking
 
@@ -99,6 +100,44 @@ cleanup()
 
 // You can also set the page options
 setPageOptions({ props: { variation: 'button A' } })
+```
+
+### File downloads tracking
+
+```ts
+import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
+import { useAutoFileDownloadsTracking } from '@barbapapazes/plausible-tracker/extensions'
+
+const plausible = createPlausibleTracker()
+
+const { install, cleanup, setPageOptions } = useFileDownloadsTracking(plausible, { fileTypes: [] }) // You can pass the file types to track. For example: ['pdf', 'zip']
+
+install()
+
+// At any time, you can stop the file downloads tracking
+cleanup()
+
+// You can also set the page options
+setPageOptions({ props: { variation: 'button A' } })
+```
+
+> [!IMPORTANT]
+> By default, the file downloads does not track any file type. You need to pass the file types to track.
+
+The package exports the `defaultFileTypes` that is an array with the most common file types which are [the same as the official script](https://plausible.io/docs/file-downloads-tracking#which-file-types-are-tracked).
+
+```ts
+import { defaultFileTypes } from '@barbapapazes/plausible-tracker/extensions'
+
+const { install, cleanup, setPageOptions } = useFileDownloadsTracking(plausible, { fileTypes: defaultFileTypes })
+```
+
+This allows you to easily customize the file types to track:
+
+```ts
+import { defaultFileTypes } from '@barbapapazes/plausible-tracker/extensions'
+
+const { install, cleanup, setPageOptions } = useFileDownloadsTracking(plausible, { fileTypes: [...defaultFileTypes, 'svg'] })
 ```
 
 ## Contribute

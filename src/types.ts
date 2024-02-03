@@ -15,7 +15,7 @@ export interface Plausible {
   trackPageview(options?: EventOptions): void
 }
 
-export type EventName = 'pageview' | 'Outbound Link: Click' | string & Record<never, never>
+export type EventName = 'pageview' | 'Outbound Link: Click' | 'File Download' | string & Record<never, never>
 
 export interface PlausibleOptions {
   /**

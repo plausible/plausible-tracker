@@ -1,7 +1,21 @@
 import type { EventOptions, Plausible } from '../index'
-import { isOutboundLink, openLink, shouldFollowLink } from './utils'
+import { openLink, shouldFollowLink } from './utils'
 
-export function useAutoOutboundTracking(plausible: Plausible, initOptions?: EventOptions) {
+export interface AutoFileDownloadsTrackingOptions {
+  /**
+   * File types to track.
+   */
+  fileTypes: string[]
+}
+
+/**
+ * Default file types to track.
+ * @see https://plausible.io/docs/file-downloads-tracking#which-file-types-are-tracked
+ */
+export const defaultFileTypes = ['pdf', 'xlsx', 'docx', 'txt', 'rtf', 'csv', 'exe', 'key', 'pps', 'ppt', 'pptx', '7z', 'pkg', 'rar', 'gz', 'zip', 'avi', 'mov', 'mp4', 'mpeg', 'wmv', 'midi', 'mp3', 'wav', 'wma']
+
+export function useAutoFileDownloadsTracking(plausible: Plausible, extensionOptions: AutoFileDownloadsTrackingOptions, initOptions?: EventOptions) {
+  const fileTypes = extensionOptions.fileTypes
   const options: EventOptions = { ...initOptions }
   const tracked = new Set<HTMLAnchorElement>()
 
@@ -16,13 +30,13 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
    * @param event - The click event
    */
   function handleLinkClickEvent(this: HTMLAnchorElement, event: MouseEvent) {
-    const location = window.location as (Location & string) as string
     // If not left click and not middle click, do nothing.
-    if ((event.type === 'auxclick' && event.button !== 1) || !isOutboundLink(this, location))
+    if ((event.type === 'auxclick' && event.button !== 1))
       return
 
-    // There is an href since it's an outbound link.
-    const href = this.getAttribute('href')!
+    const pathname = this.pathname
+    if (!isDownloadToTrack(pathname, fileTypes))
+      return
 
     // Avoid to retrigger a navigation if trackEvent callback is called but setTimeout trigger at the same time.
     let followedLink = false
@@ -35,15 +49,15 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
       }
     }
 
-    const props = { url: href }
+    const props = { url: pathname }
     if (shouldFollowLink(event, this)) {
-      plausible.trackEvent('Outbound Link: Click', { props, callback: followLink })
+      plausible.trackEvent('File Download', { props, callback: followLink })
       // Fall back if the callback doesn't fire
       setTimeout(followLink, 1000)
       event.preventDefault()
     }
     else {
-      plausible.trackEvent('Outbound Link: Click', { props })
+      plausible.trackEvent('File Download', { props })
     }
   }
 
@@ -54,7 +68,8 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
    */
   function addNode(node: Node | ParentNode) {
     if (node instanceof HTMLAnchorElement) {
-      if (node.host !== location.host) {
+      // Downloaded files hosted on the same domain otherwise it's handled by the extension `useAutoOutboundTracking`.
+      if (node.host === location.host) {
         node.addEventListener('click', handleLinkClickEvent)
         node.addEventListener('auxclick', handleLinkClickEvent)
         tracked.add(node)
@@ -133,4 +148,19 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
     cleanup,
     setPageOptions,
   }
+}
+
+/**
+ * Determine if a link is a download to track.
+ */
+function isDownloadToTrack(url: string, fileTypes: string[]) {
+  if (!url)
+    return false
+
+  const fileType = url.split('.').pop()
+
+  if (!fileType)
+    return false
+
+  return fileTypes.includes(fileType)
 }
