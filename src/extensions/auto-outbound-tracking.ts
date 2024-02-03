@@ -5,7 +5,7 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
   const options: EventOptions = { ...initOptions }
   const tracked = new Set<HTMLAnchorElement>()
 
-  function setPageOptions(newOptions: EventOptions) {
+  function setEventOptions(newOptions: EventOptions) {
     Object.assign(options, newOptions)
   }
 
@@ -131,6 +131,6 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
   return {
     install,
     cleanup,
-    setPageOptions,
+    setEventOptions,
   }
 }

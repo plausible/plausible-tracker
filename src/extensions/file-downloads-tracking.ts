@@ -19,7 +19,7 @@ export function useAutoFileDownloadsTracking(plausible: Plausible, extensionOpti
   const options: EventOptions = { ...initOptions }
   const tracked = new Set<HTMLAnchorElement>()
 
-  function setPageOptions(newOptions: EventOptions) {
+  function setEventOptions(newOptions: EventOptions) {
     Object.assign(options, newOptions)
   }
 
@@ -146,7 +146,7 @@ export function useAutoFileDownloadsTracking(plausible: Plausible, extensionOpti
   return {
     install,
     cleanup,
-    setPageOptions,
+    setEventOptions,
   }
 }
 

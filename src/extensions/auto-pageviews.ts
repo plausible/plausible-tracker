@@ -3,7 +3,7 @@ import type { EventOptions, Plausible } from '../index'
 export function useAutoPageviews(plausible: Plausible, initOptions?: EventOptions) {
   const options: EventOptions = { ...initOptions }
 
-  function setPageOptions(newOptions: EventOptions) {
+  function setEventOptions(newOptions: EventOptions) {
     Object.assign(options, newOptions)
   }
 
@@ -44,6 +44,6 @@ export function useAutoPageviews(plausible: Plausible, initOptions?: EventOption
   return {
     install,
     cleanup,
-    setPageOptions,
+    setEventOptions,
   }
 }

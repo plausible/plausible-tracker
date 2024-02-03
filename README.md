@@ -71,7 +71,7 @@ import { useAutoPageviews } from '@barbapapazes/plausible-tracker/extensions'
 
 const plausible = createPlausibleTracker()
 
-const { install, cleanup, setPageOptions } = useAutoPageviews(plausible)
+const { install, cleanup, setEventOptions } = useAutoPageviews(plausible)
 
 install()
 
@@ -79,7 +79,7 @@ install()
 cleanup()
 
 // You can also set the page options
-setPageOptions({ props: { variation: 'button A' } })
+setEventOptions({ props: { variation: 'button A' } })
 // Now, every page view will include the prop `variation: 'button A'`
 ```
 
@@ -91,7 +91,7 @@ import { useAutoOutboundTracking } from '@barbapapazes/plausible-tracker/extensi
 
 const plausible = createPlausibleTracker()
 
-const { install, cleanup, setPageOptions } = useOutboundLinkTracking(plausible)
+const { install, cleanup, setEventOptions } = useOutboundLinkTracking(plausible)
 
 install()
 
@@ -99,7 +99,7 @@ install()
 cleanup()
 
 // You can also set the page options
-setPageOptions({ props: { variation: 'button A' } })
+setEventOptions({ props: { variation: 'button A' } })
 ```
 
 ### File downloads tracking
@@ -110,7 +110,7 @@ import { useAutoFileDownloadsTracking } from '@barbapapazes/plausible-tracker/ex
 
 const plausible = createPlausibleTracker()
 
-const { install, cleanup, setPageOptions } = useFileDownloadsTracking(plausible, { fileTypes: [] }) // You can pass the file types to track. For example: ['pdf', 'zip']
+const { install, cleanup, setEventOptions } = useFileDownloadsTracking(plausible, { fileTypes: [] }) // You can pass the file types to track. For example: ['pdf', 'zip']
 
 install()
 
@@ -118,7 +118,7 @@ install()
 cleanup()
 
 // You can also set the page options
-setPageOptions({ props: { variation: 'button A' } })
+setEventOptions({ props: { variation: 'button A' } })
 ```
 
 > [!IMPORTANT]
@@ -129,7 +129,7 @@ The package exports the `defaultFileTypes` that is an array with the most common
 ```ts
 import { defaultFileTypes } from '@barbapapazes/plausible-tracker/extensions'
 
-const { install, cleanup, setPageOptions } = useFileDownloadsTracking(plausible, { fileTypes: defaultFileTypes })
+const { install, cleanup, setEventOptions } = useFileDownloadsTracking(plausible, { fileTypes: defaultFileTypes })
 ```
 
 This allows you to easily customize the file types to track:
@@ -137,7 +137,7 @@ This allows you to easily customize the file types to track:
 ```ts
 import { defaultFileTypes } from '@barbapapazes/plausible-tracker/extensions'
 
-const { install, cleanup, setPageOptions } = useFileDownloadsTracking(plausible, { fileTypes: [...defaultFileTypes, 'svg'] })
+const { install, cleanup, setEventOptions } = useFileDownloadsTracking(plausible, { fileTypes: [...defaultFileTypes, 'svg'] })
 ```
 
 ## Contribute
