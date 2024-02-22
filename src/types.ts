@@ -6,13 +6,13 @@ export interface Plausible {
    * @param eventName - The event name
    * @param options - The event options
    */
-  trackEvent(eventName: EventName, options?: EventOptions): void
+  trackEvent: (eventName: EventName, options?: EventOptions) => void
   /**
    * Send a pageview event.
    *
    * @param options - The event options
    */
-  trackPageview(options?: EventOptions): void
+  trackPageview: (options?: EventOptions) => void
 }
 
 export type EventName = 'pageview' | 'Outbound Link: Click' | 'File Download' | string & Record<never, never>
