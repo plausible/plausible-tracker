@@ -48,7 +48,7 @@ export interface PlausibleOptions {
    *
    * @default ['localhost']
    */
-  readonly blackListedDomains: string[]
+  readonly ignoredHostnames: string[]
   /**
    * Log events to the console when ignored.
    *

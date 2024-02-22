@@ -11,11 +11,13 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
 
   /**
    * Callback of an event listener on an anchor element.
-   *
-   * @param this - The anchor element
-   * @param event - The click event
    */
-  function handleLinkClickEvent(this: HTMLAnchorElement, event: MouseEvent) {
+  function handleLinkClickEvent(
+    /** The anchor element */
+    this: HTMLAnchorElement,
+    /** The click event */
+    event: MouseEvent,
+  ) {
     const location = window.location as (Location & string) as string
     // If not left click and not middle click, do nothing.
     if ((event.type === 'auxclick' && event.button !== 1) || !isOutboundLink(this, location))
@@ -24,7 +26,7 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
     // There is an href since it's an outbound link.
     const href = this.getAttribute('href')!
 
-    // Avoid to retrigger a navigation if trackEvent callback is called but setTimeout trigger at the same time.
+    // Avoid to retrigger a navigation if `trackEvent` callback is called but `setTimeout` trigger at the same time.
     let followedLink = false
 
     // Use arrow function to keep the context of `this` as the anchor element.
@@ -49,10 +51,11 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
 
   /**
    * Add the event listeners to the node.
-   *
-   * @param node - The node to add
    */
-  function addNode(node: Node | ParentNode) {
+  function addNode(
+    /** The node to add */
+    node: Node | ParentNode,
+  ) {
     if (node instanceof HTMLAnchorElement) {
       if (node.host !== location.host) {
         node.addEventListener('click', handleLinkClickEvent)
@@ -67,10 +70,11 @@ export function useAutoOutboundTracking(plausible: Plausible, initOptions?: Even
 
   /**
    * Remove the event listeners from the node.
-   *
-   * @param node - The node to remove
    */
-  function removeNode(node: Node | ParentNode) {
+  function removeNode(
+    /** The node to remove */
+    node: Node | ParentNode,
+  ) {
     if (node instanceof HTMLAnchorElement) {
       node.removeEventListener('click', handleLinkClickEvent)
       node.removeEventListener('auxclick', handleLinkClickEvent)

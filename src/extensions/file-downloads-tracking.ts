@@ -25,11 +25,13 @@ export function useAutoFileDownloadsTracking(plausible: Plausible, extensionOpti
 
   /**
    * Callback of an event listener on an anchor element.
-   *
-   * @param this - The anchor element
-   * @param event - The click event
    */
-  function handleLinkClickEvent(this: HTMLAnchorElement, event: MouseEvent) {
+  function handleLinkClickEvent(
+    /** The anchor element */
+    this: HTMLAnchorElement,
+    /** The click event */
+    event: MouseEvent,
+  ) {
     // If not left click and not middle click, do nothing.
     if ((event.type === 'auxclick' && event.button !== 1))
       return
@@ -63,10 +65,11 @@ export function useAutoFileDownloadsTracking(plausible: Plausible, extensionOpti
 
   /**
    * Add the event listeners to the node.
-   *
-   * @param node - The node to add
    */
-  function addNode(node: Node | ParentNode) {
+  function addNode(
+    /** The node to add */
+    node: Node | ParentNode,
+  ) {
     if (node instanceof HTMLAnchorElement) {
       // Downloaded files hosted on the same domain otherwise it's handled by the extension `useAutoOutboundTracking`.
       if (node.host === location.host) {
@@ -82,10 +85,11 @@ export function useAutoFileDownloadsTracking(plausible: Plausible, extensionOpti
 
   /**
    * Remove the event listeners from the node.
-   *
-   * @param node - The node to remove
    */
-  function removeNode(node: Node | ParentNode) {
+  function removeNode(
+    /** The node to remove */
+    node: Node | ParentNode,
+  ) {
     if (node instanceof HTMLAnchorElement) {
       node.removeEventListener('click', handleLinkClickEvent)
       node.removeEventListener('auxclick', handleLinkClickEvent)

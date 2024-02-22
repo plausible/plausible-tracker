@@ -8,7 +8,7 @@ export function useAutoPageviews(plausible: Plausible, initOptions?: EventOption
   }
 
   /**
-   * Encapsulate the pageview event to allow user to update the options at any time
+   * Encapsulate the pageview event to allow user to update the options at any time.
    */
   function page() {
     plausible.trackPageview(options)
