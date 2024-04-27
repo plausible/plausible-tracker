@@ -1,7 +1,7 @@
 import { createPlausibleTracker } from '@barbapapazes/plausible-tracker'
 import { defaultFileTypes, useAutoFileDownloadsTracking, useAutoOutboundTracking, useAutoPageviews } from '@barbapapazes/plausible-tracker/extensions'
 
-const plausible = createPlausibleTracker()
+const plausible = createPlausibleTracker({ ignoreSubDomains: true })
 
 const { install: installAutoPageviews, cleanup: cleanupAutoPageViews } = useAutoPageviews(plausible)
 const { install: installAutoOutboundTracking, cleanup: cleanupAutoOutboundTracking } = useAutoOutboundTracking(plausible)

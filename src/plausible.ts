@@ -23,6 +23,7 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
     domain: location.hostname,
     apiHost: 'https://plausible.io',
     ignoredHostnames: ['localhost'],
+    ignoreSubDomains: false,
     logIgnored: false,
   }
 
@@ -42,7 +43,7 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
     const payload = createPayload(eventName, plausibleOptions, data, options)
 
     // Ignore events if the protocol is file, the hostname should be ignored or the user excluded himself.
-    if (isFile(protocol) || isIgnored(plausibleOptions.domain, plausibleOptions.ignoredHostnames) || isUserSelfExcluded()) {
+    if (isFile(protocol) || isIgnored(plausibleOptions.domain, plausibleOptions.ignoredHostnames, plausibleOptions.ignoreSubDomains) || isUserSelfExcluded()) {
       // Only log ignored events if the option is enabled.
       if (!plausibleOptions.logIgnored)
         // eslint-disable-next-line no-console

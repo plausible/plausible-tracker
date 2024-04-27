@@ -50,6 +50,13 @@ export interface PlausibleOptions {
    */
   readonly ignoredHostnames: string[]
   /**
+   * If `ignoredHostnames` should be used as suffixes.
+   * This means that `example.com` will also ignore `sub.example.com`.
+   *
+   * @default false
+   */
+  readonly ignoreSubDomains: boolean
+  /**
    * Log events to the console when ignored.
    *
    * @default false

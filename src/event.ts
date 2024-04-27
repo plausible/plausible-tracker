@@ -22,7 +22,14 @@ export function isIgnored(
   hostname: string,
   /** Hostnames to ignore */
   ignoredHostnames: string[],
+  /** Ignore sub domain  */
+  ignoreSubDomains: boolean,
 ): boolean {
+  if (ignoreSubDomains)
+    // Both `example.com` and `sub.example.com` will be ignored
+    return ignoredHostnames.some(ignoredHostname => hostname === ignoredHostname || hostname.endsWith(`.${ignoredHostname}`))
+
+  // Only `example.com` will be ignored
   return ignoredHostnames.includes(hostname)
 }
 
