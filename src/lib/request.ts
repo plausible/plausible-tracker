@@ -13,12 +13,16 @@ type EventPayload = {
   readonly p?: string;
 };
 
+type CallbackArgs = {
+  readonly status: number;
+};
+
 // eslint-disable-next-line functional/no-mixed-type
 export type EventOptions = {
   /**
    * Callback called when the event is successfully sent.
    */
-  readonly callback?: () => void;
+  readonly callback?: (args: CallbackArgs) => void;
   /**
    * Properties to be bound to the event.
    */
@@ -76,7 +80,7 @@ export function sendEvent(
   req.onreadystatechange = () => {
     if (req.readyState !== 4) return;
     if (options && options.callback) {
-      options.callback();
+      options.callback({ status: req.status });
     }
   };
 }

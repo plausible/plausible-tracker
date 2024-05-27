@@ -1,5 +1,13 @@
 import { EventOptions, sendEvent } from './request';
 
+declare global {
+  // eslint-disable-next-line functional/prefer-type-literal
+  interface Window {
+    // eslint-disable-next-line functional/prefer-readonly-type
+    plausible: TrackEvent;
+  }
+}
+
 /**
  * Options used when initializing the tracker.
  */
@@ -207,6 +215,7 @@ type EnableAutoOutboundTracking = (
  *
  * @param defaults - Default event parameters that will be applied to all requests.
  */
+
 export default function Plausible(
   defaults?: PlausibleInitOptions
 ): {
@@ -215,6 +224,11 @@ export default function Plausible(
   readonly enableAutoPageviews: EnableAutoPageviews;
   readonly enableAutoOutboundTracking: EnableAutoOutboundTracking;
 } {
+  const modifyWindow = () => {
+    // eslint-disable-next-line functional/immutable-data
+    window.plausible = trackEvent;
+  };
+
   const getConfig = (): Required<PlausibleOptions> => ({
     hashMode: false,
     trackLocalhost: false,
@@ -229,6 +243,8 @@ export default function Plausible(
   const trackEvent: TrackEvent = (eventName, options, eventData) => {
     sendEvent(eventName, { ...getConfig(), ...eventData }, options);
   };
+
+  modifyWindow();
 
   const trackPageview: TrackPageview = (eventData, options) => {
     trackEvent('pageview', options, eventData);
