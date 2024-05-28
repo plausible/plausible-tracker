@@ -11,6 +11,7 @@ beforeEach(() => {
 
 describe('tracker', () => {
   const getDefaultData: () => Required<PlausibleOptions> = () => ({
+    enabled: true,
     hashMode: false,
     trackLocalhost: false,
     url: location.href,
@@ -21,6 +22,7 @@ describe('tracker', () => {
   });
 
   const getCustomData: () => Required<PlausibleOptions> = () => ({
+    enabled: true,
     hashMode: true,
     trackLocalhost: true,
     url: 'https://my-url.com',

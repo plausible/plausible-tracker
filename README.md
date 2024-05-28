@@ -52,6 +52,7 @@ const plausible = Plausible({
 
 | Option         | Type     | Description                                                       | Default                  |
 | -------------- | -------- | ----------------------------------------------------------------- | ------------------------ |
+| enabled        | `bool`   | Enables sending event data to Plausible.                          | `true`                   |
 | domain         | `string` | Your site's domain, as declared by you in Plausible's settings    | `location.hostname`      |
 | hashMode       | `bool`   | Enables tracking based on URL hash changes.                       | `false`                  |
 | trackLocalhost | `bool`   | Enables tracking on *localhost*.                                  | `false`                  |
@@ -104,7 +105,7 @@ trackPageview({
 })
 ```
 
-The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals). 
+The second parameter is an object with [some options](https://plausible-tracker.netlify.app/globals.html#eventoptions) similar to the ones provided by the [official Plausible script](https://docs.plausible.io/custom-event-goals).
 
 ```ts
 import Plausible from 'plausible-tracker'
