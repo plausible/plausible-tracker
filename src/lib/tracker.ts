@@ -293,6 +293,10 @@ export default function Plausible(
     }
   ) => {
     function trackClick(this: HTMLAnchorElement, event: MouseEvent) {
+      if (!this.href) {
+        return;
+      }
+
       trackEvent('Outbound Link: Click', { props: { url: this.href } });
 
       /* istanbul ignore next */
