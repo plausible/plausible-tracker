@@ -39,7 +39,8 @@ export function createPlausibleTracker(initOptions?: Partial<PlausibleOptions>) 
    * @param options - The event options
    */
   function trackEvent(eventName: EventName, options?: EventOptions) {
-    if (!plausibleOptions.enabled) return
+    if (!plausibleOptions.enabled)
+      return
 
     const data = createEventData(options?.data)
     const payload = createPayload(eventName, plausibleOptions, data, options)
