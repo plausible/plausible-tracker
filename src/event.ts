@@ -60,7 +60,7 @@ export function createEventData(
   const { url, referrer, deviceWidth } = data
 
   return {
-    url: url ?? location.href,
+    url: url ?? window.location.href,
     referrer: referrer ?? document.referrer,
     deviceWidth: deviceWidth ?? window.innerWidth,
   }
