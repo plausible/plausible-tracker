@@ -1,4 +1,6 @@
-# Plausible Analytics Tracker
+# Archived: Plausible Analytics Tracker
+
+**No longer maintained. Newer version of the library can be found at https://www.npmjs.com/package/@plausible-analytics/tracker**
 
 [![NPM](https://flat.badgen.net/npm/v/plausible-tracker)](https://www.npmjs.com/package/plausible-tracker)  [![Bundle](https://flat.badgen.net/bundlephobia/minzip/plausible-tracker)](https://bundlephobia.com/result?p=plausible-tracker@latest)
 
