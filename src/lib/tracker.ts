@@ -293,12 +293,24 @@ export default function Plausible(
     }
   ) => {
     function trackClick(this: HTMLAnchorElement, event: MouseEvent) {
+      // auxclick is fired for any mouse-button except primary (left).
+      // The event should only be sent on aux (middle) click, return for others (right, etc).
+      const auxEvent = event.type === 'auxclick';
+      if (auxEvent && event.button !== 1) return;
+
       trackEvent('Outbound Link: Click', { props: { url: this.href } });
 
+      // _self (same as falsy), _parent and _top need a delay for the request to go through.
+      // _blank opens a new tab -> no need for delay
+      // no special handling for custom targets -> use the default browser behavior
       /* istanbul ignore next */
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
       if (
+        (!this.target || this.target.match(/^_(self|parent|top)$/i)) &&
+        !auxEvent && // middle mouse click opens a new tab -> no need for delay
+        !event.ctrlKey && // ctrl + click opens a new tab -> no need for delay
+        !event.metaKey && // same as ctrl
+        !event.shiftKey && // shift + click opens a new window -> no need for delay
+        // don't try to access location object during testing
         !(
           typeof process !== 'undefined' &&
           process &&
@@ -306,12 +318,24 @@ export default function Plausible(
         )
       ) {
         setTimeout(() => {
-          // eslint-disable-next-line functional/immutable-data
-          location.href = this.href;
+          switch (this.target) {
+            case '_top':
+              // eslint-disable-next-line functional/immutable-data
+              (window.top ?? window).location.href = this.href;
+              break;
+            case '_parent':
+              // eslint-disable-next-line functional/immutable-data
+              window.parent.location.href = this.href;
+              break;
+            default:
+              // eslint-disable-next-line functional/immutable-data
+              location.href = this.href;
+              break;
+          }
         }, 150);
-      }
 
-      event.preventDefault();
+        event.preventDefault();
+      }
     }
 
     // eslint-disable-next-line functional/prefer-readonly-type
@@ -321,6 +345,7 @@ export default function Plausible(
       if (node instanceof HTMLAnchorElement) {
         if (node.host !== location.host) {
           node.addEventListener('click', trackClick);
+          node.addEventListener('auxclick', trackClick);
           tracked.add(node);
         }
       } /* istanbul ignore next */ else if ('querySelectorAll' in node) {
@@ -331,6 +356,7 @@ export default function Plausible(
     function removeNode(node: Node | ParentNode) {
       if (node instanceof HTMLAnchorElement) {
         node.removeEventListener('click', trackClick);
+        node.removeEventListener('auxclick', trackClick);
         tracked.delete(node);
       } /* istanbul ignore next */ else if ('querySelectorAll' in node) {
         node.querySelectorAll('a').forEach(removeNode);
@@ -361,6 +387,7 @@ export default function Plausible(
     return function cleanup() {
       tracked.forEach((a) => {
         a.removeEventListener('click', trackClick);
+        a.removeEventListener('auxclick', trackClick);
       });
       tracked.clear();
       observer.disconnect();

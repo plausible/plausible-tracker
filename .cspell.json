@@ -29,7 +29,8 @@
     "popstate",
     "hashchange",
     "signup",
-    "automagically"
+    "automagically",
+    "auxclick"
   ],
   "flagWords": [],
   "ignorePaths": [
